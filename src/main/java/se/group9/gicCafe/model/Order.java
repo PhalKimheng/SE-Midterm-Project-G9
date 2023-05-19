@@ -4,7 +4,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-import se.group9.gicCafe.model.User;
+// import se.group9.gicCafe.model.User;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Column;
@@ -16,7 +16,13 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "orders")
 public class Order {
@@ -51,75 +57,4 @@ public class Order {
     @OneToMany(mappedBy="order")
     private List<OrderDetail> orderDetail = new ArrayList<>();
     
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getZone() {
-        return zone;
-    }
-
-    public void setZone(String zone) {
-        this.zone = zone;
-    }
-
-    public double getTotal() {
-        return total;
-    }
-
-    public void setTotal(double total) {
-        this.total = total;
-    }
-
-    public double getChanged() {
-        return changed;
-    }
-
-    public void setChanged(double changed) {
-        this.changed = changed;
-    }
-
-    public Date getOrder_date() {
-        return order_date;
-    }
-
-    public void setOrder_date(Date order_date) {
-        this.order_date = order_date;
-    }
-
-    public double getCash_received() {
-        return cash_received;
-    }
-
-    public void setCash_received(double cash_received) {
-        this.cash_received = cash_received;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Tables getTables() {
-        return tables;
-    }
-
-    public void setTables(Tables tables) {
-        this.tables = tables;
-    }
-
-    public List<OrderDetail> getOrderDetail() {
-        return orderDetail;
-    }
-
-    public void setOrderDetail(List<OrderDetail> orderDetail) {
-        this.orderDetail = orderDetail;
-    }  
 }

@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <script src="./tailwind.js"></script> -->
+    <!-- <link rel="stylesheet" href="./Style_drinkSelection_orderInfo.css"> -->
+</head>
+<style>
+    body {
+        font-family: sans-serif;
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+    ::-webkit-scrollbar {
+        width: 1.2vh;
+        height: 1.2vh;
+    }
+
+    ::-webkit-scrollbar-track {
+        border: 0.01vh solid rgb(114, 114, 114);
+        border-radius: 1rem;
+        margin-block: 1rem;
+        margin-inline: 3rem;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        border: 0.01vh solid rgb(114, 114, 114);
+
+        border-radius: 1rem;
+
+        background-image: linear-gradient(120deg, #ffb75e 10%, #ed8f03 100%);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background-image: linear-gradient(120deg, #eda143 10%, #cd7d05 100%);
+    }
+
+    button {
+        background: transparent;
+        border: none;
+    }
+
+    hr {
+        padding: 0;
+        margin: 0;
+    }
+
+
+    .M-drink-selection {
+        height: 100vh;
+        width: 100%;
+        display: flex;
+    }
+
+
+    .M-sec-left {
+        width: 50%;
+        height: 100%;
+        border: 1px solid #6FC3DF;
+
+        position: relative;
+
+    }
+
+    #category {
+        width: 49vw;
+        display: flex;
+        column-gap: .25rem;
+    }
+
+
+    .M-category-button {
+        width: fit-content;
+        height: 2.6rem;
+        padding: 0 .25rem 0 .25rem;
+
+        display: flex;
+        align-items: center;
+        font-weight: 600;
+        border: 2px sold grey;
+        border-radius: .125px;
+
+    }
+
+
+    .M-category-button button {
+        width: fit-content;
+        height: fit-content;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+
+    .M-category-button button svg {
+        height: 1.5rem;
+        rotate: -90deg;
+    }
+
+    .M-category-button button:hover {
+        color: blue;
+    }
+
+    .M-categoryList-wrapper {
+        height: 3.4rem;
+        overflow-x: auto;
+        margin-bottom: 3px;
+
+    }
+
+    #categoryList {
+        width: fit-content;
+        padding: 0 .5rem 1px 0;
+        border: 1px solid transparent;
+        border-top: 0;
+
+        display: flex;
+        gap: .5rem;
+        box-sizing: border-box;
+        z-index: 10;
+        font-weight: 600;
+
+
+    }
+
+    .M-classList-toggle {
+        flex-wrap: wrap;
+        position: absolute;
+        background-color: white;
+    }
+
+    .M-category-name {
+        list-style: none;
+        height: 2.6rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 1.5rem 0 1.5rem;
+        border: 2px solid #0f0f0f6f;
+    }
+
+    .M-category-name:hover {
+        border-color: #E73D85;
+        color: #E73D85;
+    }
+
+
+    #category-data {
+        overflow: auto;
+    }
+
+    #category-data> :first-child {
+        margin: .5rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: .75rem;
+        justify-content: center;
+        font-size: 1.2rem;
+        font-weight: 600;
+    }
+
+    .M-drink-name {
+        height: 10.5rem;
+        width: 10.5rem;
+
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .M-drink-name>:first-child {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #e3e3e3;
+        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        border-radius: 4px;
+
+    }
+
+    .M-drink-name>:first-child:hover {
+        position: absolute;
+        animation: resize-animated .15s forwards ease-in-out;
+    }
+
+    .M-drink-name>:first-child:active {
+        background-color: #e3e3e3;
+
+    }
+
+    @keyframes resize-animated {
+        0% {
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        100% {
+            left: -1%;
+            width: 102%;
+            height: 102%;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 1.5), 0 2px 4px -2px rgba(0, 0, 0, 0.5);
+        }
+    }
+
+    .M-drink-name p {
+        height: 40%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+    }
+
+
+    /* ---------------------section right----------- */
+    .M-sec-right {
+        width: 50%;
+        height: 100%;
+        padding: .5rem;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border: 1px solid #6FC3DF;
+    }
+
+    .M-orderInfo {
+        margin-top: 1rem;
+        width: 100%;
+        padding: 0 .5rem 0 .5rem;
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+    }
+
+    .M-orderInfo>* {
+        padding: .2rem 0 .2rem 0;
+        border: 2px solid transparent;
+        border-radius: 2px;
+        display: flex;
+        align-items: center;
+    }
+
+    .M-orderInfo>*:hover {
+        /* border-color: #ffb75e; */
+        border-color: hsl(270, 93%, 54%);
+    }
+
+    /* .orderInfo>:nth-child(odd){
+    background-color: red;
+}
+.orderInfo>:nth-child(even){
+    background-color: rgb(18, 164, 197);
+} */
+
+    .M-orderInfo input {
+        padding: .2rem 2px;
+        width: 3rem;
+        border: 2px solid transparent;
+        border-radius: 4px;
+    }
+
+    .M-orderInfo input:hover {
+        border-color: blue;
+    }
+
+    .M-orderInfo>*>:nth-child(1) {
+        width: 5%;
+        padding-left: .5rem;
+
+    }
+
+    .M-orderInfo>*>:nth-child(2) {
+        width: 35%;
+        padding-left: .5rem;
+    }
+
+    .M-orderInfo>*>:nth-child(3) {
+        width: 10%;
+    }
+
+    .M-orderInfo>*>:nth-child(4) {
+        width: 20%;
+    }
+
+    .M-orderInfo>*>:nth-child(5) {
+        width: 16%;
+
+    }
+
+    .M-orderInfo>*>:last-child {
+        width: 14%;
+        display: flex;
+        column-gap: .6rem;
+    }
+
+    .M-orderInfo>*>:last-child>* {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .M-orderInfo>*>:last-child>*:hover {
+        color: blue;
+
+    }
+
+
+
+    .M-rotate-ctg-up {
+        animation: toggle-ctg-up forwards 200ms;
+    }
+
+    @keyframes toggle-ctg-up {
+        0% {
+            rotate: 0deg;
+        }
+
+        100% {
+            rotate: 180deg;
+        }
+    }
+
+    .M-rotate-ctg-down {
+        animation: toggle-ctg-down forwards 200ms;
+    }
+
+    @keyframes toggle-ctg-down {
+        0% {
+            rotate: 180deg;
+        }
+
+        100% {
+            rotate: 360deg;
+        }
+    }
+</style>
+
+<body>
+
+    <div class="M-drink-selection">
+        <section class="M-sec-left">
+            <div id="category">
+                <div class="M-category-button">
+                    <div>Category</div>
+                    <button onclick="viewAllCategory(this)">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5" />
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="M-categoryList-wrapper">
+                    <div id="categoryList">
+                        <button class="M-category-name">
+                            12312233435t</button>
+
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div id="category-data">
+                <ul>
+                    <li class="M-drink-name">
+                        <div>
+                            <div style="height: 60%;"><img src="./see all.svg" style="height: 5rem;" alt=""
+                                    draggable="false">
+                            </div>
+                            <hr width="100%">
+                            <p>
+                                blah blah
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+        <section class="M-sec-right">
+            <Strong>Order Information</Strong>
+            <ul class="M-orderInfo">
+                <li>
+                    <div>1</div>
+                    <div>Ice blah blah blah blah</div>
+                    <div>R</div>
+                    <div>
+                        <input type="number" min="1" value="1">
+                    </div>
+                    <div>2.3</div>
+                    <div>
+                        <div>
+                            <button>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" style="height: 1.25rem;">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                                </svg>
+                            </button>
+
+                        </div>
+                        <div>
+                            <button>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" style="height: 1.25rem;">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </section>
+        <script>
+            const CategoryList = document.getElementById("categoryList");
+            let isToggle = false;
+            function viewAllCategory(node) {
+                if (isToggle) {
+                    CategoryList.classList.remove("M-classList-toggle");
+                    node.classList.remove("M-rotate-ctg-up");
+                    node.classList.add("M-rotate-ctg-down");
+                } else {
+                    CategoryList.classList.add("M-classList-toggle");
+                    node.classList.add("M-rotate-ctg-up");
+
+                    if (node.classList.contains("M-rotate-ctg-down")) {
+                        node.classList.remove("M-rotate-ctg-down");
+                    }
+                }
+                isToggle = !isToggle;
+            }
+
+
+
+
+
+
+
+        </script>
+</body>
+
+</html>

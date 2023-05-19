@@ -10,7 +10,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "drink_categories")
 public class DrinkCategory {
@@ -23,30 +29,6 @@ public class DrinkCategory {
 
     @OneToMany(mappedBy="drinkCategory")
     private List<Drink> drink = new ArrayList<>();
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<Drink> getDrink() {
-        return drink;
-    }
-
-    public void setDrink(List<Drink> drink) {
-        this.drink = drink;
-    }
 
     
 }

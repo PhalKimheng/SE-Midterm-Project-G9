@@ -13,6 +13,13 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "drinks")
 public class Drink {
@@ -35,52 +42,6 @@ public class Drink {
 
     @OneToMany(mappedBy="drink")
     private List<OrderDetail> orderDetail = new ArrayList<>();
-    
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
-    }
-
-    public DrinkCategory getDrinkCategory() {
-        return drinkCategory;
-    }
-
-    public void setDrinkCategory(DrinkCategory drinkCategory) {
-        this.drinkCategory = drinkCategory;
-    }
-
-    public List<DrinkSize> getDrinkSize() {
-        return drinkSize;
-    }
-
-    public void setDrinkSize(List<DrinkSize> drinkSize) {
-        this.drinkSize = drinkSize;
-    }
-
-    public List<OrderDetail> getOrderDetail() {
-        return orderDetail;
-    }
-
-    public void setOrderDetail(List<OrderDetail> orderDetail) {
-        this.orderDetail = orderDetail;
-    }
 }
