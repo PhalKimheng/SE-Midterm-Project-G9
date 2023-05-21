@@ -40,10 +40,6 @@ public class OrderDetail {
     @JoinColumn(name="fid", nullable=true)
     private Food food;
 
-    @ManyToOne
-    @JoinColumn(name="dsid", nullable=true)
-    private DrinkSize drinkSize;
-
     
     public int getId() {
         return id;
@@ -99,14 +95,6 @@ public class OrderDetail {
 
     public void setDrink(Drink drink) {
         this.drink = drink;
-    }
-
-    public DrinkSize getDrinkSize() {
-        return drinkSize;
-    }
-
-    public void setDrinkSize(DrinkSize drinkSize) {
-        this.drinkSize = drinkSize;
     }
 
     public Food getFood() {
