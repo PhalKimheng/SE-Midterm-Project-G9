@@ -10,4 +10,8 @@ public class randomMapping {
     public String random1(){
         return "drinkSelection_orderInfo";
     }
+    @GetMapping("/addcashier")
+    public String addCashier(){
+        return "addCashier";
+    }
 }
