@@ -10,4 +10,10 @@ public class randomMapping {
     public String random1(){
         return "drinkSelection_orderInfo";
     }
+
+    @GetMapping("/home")
+    public String home(){
+        
+        return "home";
+    }
 }

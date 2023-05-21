@@ -1,0 +1,364 @@
+
+body {
+    font-family: sans-serif;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+    width: 1.2vh;
+    height: 1.2vh;
+}
+
+::-webkit-scrollbar-track {
+    border: 0.01vh solid rgb(114, 114, 114);
+    border-radius: 1rem;
+    margin-block: 1rem;
+    margin-inline: 3rem;
+}
+
+::-webkit-scrollbar-thumb {
+    border: 0.01vh solid rgb(114, 114, 114);
+
+    border-radius: 1rem;
+
+    background-image: linear-gradient(120deg, #ffb75e 10%, #ed8f03 100%);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-image: linear-gradient(120deg, #eda143 10%, #cd7d05 100%);
+}
+
+button {
+    background: transparent;
+    border: none;
+}
+
+hr {
+    padding: 0;
+    margin: 0;
+}
+
+
+.M-drink-selection {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+
+    overflow: hidden;
+}
+
+/* -----------section left------------ */
+/* -----------section left------------ */
+/* -----------section left------------ */
+/* -----------section left------------ */
+/* -----------section left------------ */
+/* -----------section left------------ */
+.M-sec-left {
+    width: 50%;
+    height: 100%;
+    border: none;
+    border-right: 1px solid #6FC3DF;
+
+    position: relative;
+}
+
+#category {
+    width: 49vw;
+    display: flex;
+    column-gap: .25rem;
+
+}
+
+
+.M-category-button {
+    width: fit-content;
+    height: 2.6rem;
+    padding: 0 .25rem 0 .25rem;
+
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    border: 2px sold grey;
+    border-radius: .125px;
+
+}
+
+
+.M-category-button button {
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.M-category-button button svg {
+    height: 1.5rem;
+    rotate: -90deg;
+}
+
+.M-category-button button:hover {
+    color: blue;
+}
+
+.M-categoryList-wrapper {
+    height: 3.4rem;
+    overflow-x: auto;
+    margin-bottom: 3px;
+
+}
+
+#categoryList {
+    width: fit-content;
+    padding: 0 .5rem 1px 0;
+    border: 1px solid transparent;
+    border-top: 0;
+
+    display: flex;
+    gap: .5rem;
+    box-sizing: border-box;
+    z-index: 10;
+    font-weight: 600;
+
+
+}
+
+.M-classList-toggle {
+    flex-wrap: wrap;
+    position: absolute;
+    background-color: white;
+}
+
+
+#categoryList form{
+    border: none;
+}
+
+.M-category-name {
+    height: 2.6rem;
+    min-width: 5rem;
+    max-width: 7rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #ff00006f !important;
+    border-radius: 4px;
+}
+
+.M-category-name:hover {
+    /* border-color: #E73D85; */
+    color: #E73D85;
+}
+
+
+#category-data {
+    height: 90vh;
+    overflow: auto;
+
+}
+
+#category-data> :first-child {
+    margin: .3rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: .75rem;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+
+
+}
+
+
+.M-drink-data {
+    height: 10.5rem;
+    width: 10.5rem;
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.M-drink-data>:first-child {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #e3e3e3;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.M-drink-data>:first-child:hover {
+    position: absolute;
+    animation: resize-animated .15s forwards ease-in-out;
+}
+
+.M-drink-data>:first-child:active {
+    background-color: #e3e3e3;
+
+}
+
+@keyframes resize-animated {
+    0% {
+        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    100% {
+        left: -1%;
+        width: 102%;
+        height: 102%;
+        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 1.5), 0 2px 4px -2px rgba(0, 0, 0, 0.5);
+    }
+}
+
+.M-drink-data p {
+    height: 10%;
+    margin: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+
+.M-drink-data-img-wrapper{
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.M-drink-data-img-wrapper img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* ---------------------section right----------- */
+/* ---------------------section right----------- */
+/* ---------------------section right----------- */
+.M-sec-right {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: none;
+    border-left: 1px solid #6FC3DF;
+
+    overflow: auto;
+}
+
+.M-orderInfo {
+    margin-top: 1rem;
+    width: 100%;
+    padding: 0 .5rem 0 .5rem;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.M-orderInfo>* {
+    padding: .2rem 0 .2rem 0;
+    border: 2px solid transparent;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+}
+
+.M-orderInfo>*:hover {
+    border-color: hsl(270, 93%, 54%);
+}
+
+.M-orderInfo input {
+    padding: .2rem 2px;
+    width: 3rem;
+    border: 2px solid transparent;
+    border-radius: 4px;
+}
+
+.M-orderInfo input:hover {
+    border-color: blue;
+}
+
+.M-orderInfo>*>:nth-child(1) {
+    width: 5%;
+    padding-left: .5rem;
+
+}
+
+.M-orderInfo>*>:nth-child(2) {
+    width: 35%;
+    padding-left: .5rem;
+}
+
+.M-orderInfo>*>:nth-child(3) {
+    width: 10%;
+}
+
+.M-orderInfo>*>:nth-child(4) {
+    width: 20%;
+}
+
+.M-orderInfo>*>:nth-child(5) {
+    width: 16%;
+
+}
+
+.M-orderInfo>*>:last-child {
+    width: 14%;
+    display: flex;
+    column-gap: .6rem;
+}
+
+.M-orderInfo>*>:last-child>* {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.M-orderInfo>*>:last-child>*:hover {
+    color: blue;
+
+}
+
+.M-rotate-ctg-up {
+    animation: toggle-ctg-up forwards 200ms;
+}
+
+@keyframes toggle-ctg-up {
+    0% {
+        rotate: 0deg;
+    }
+
+    100% {
+        rotate: 180deg;
+    }
+}
+
+.M-rotate-ctg-down {
+    animation: toggle-ctg-down forwards 200ms;
+}
+
+@keyframes toggle-ctg-down {
+    0% {
+        rotate: 180deg;
+    }
+
+    100% {
+        rotate: 360deg;
+    }
+}

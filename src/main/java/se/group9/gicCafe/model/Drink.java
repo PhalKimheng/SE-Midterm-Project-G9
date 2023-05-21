@@ -30,8 +30,14 @@ public class Drink {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "code", unique = true)
+    private String code;
+
     @Column(name = "note")
     private String note;
+    
+    @Column (name="Imagepath")
+    private String imagePath;
     
     @ManyToOne
     @JoinColumn(name="dcid", nullable=false)
@@ -42,6 +48,6 @@ public class Drink {
 
     @OneToMany(mappedBy="drink")
     private List<OrderDetail> orderDetail = new ArrayList<>();
-
-
 }
+
+
