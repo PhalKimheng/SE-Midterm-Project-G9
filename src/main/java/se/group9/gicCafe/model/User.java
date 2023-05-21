@@ -39,8 +39,8 @@ public class User {
     private String password;
 
 
-    // @Column(name = "last_login")
-    // private Date login; 
+    @Column(name = "last_login")
+    private Date last_login; 
 
     @Column(name = "role")
     private String role;
@@ -112,13 +112,13 @@ public class User {
         this.date_of_birth = date_of_birth;
     }
 
-    // public Timestamp getLast_login() {
-    //     return last_login;
-    // }
+    public Date getLast_login() {
+        return last_login;
+    }
 
-    // public void setLast_login(Timestamp last_login) {
-    //     this.last_login = last_login;
-    // }
+    public void setLast_login(Date last_login) {
+        this.last_login = last_login;
+    }
 
     public String getRole() {
         return role;
