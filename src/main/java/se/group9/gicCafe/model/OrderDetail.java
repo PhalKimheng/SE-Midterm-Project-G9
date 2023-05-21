@@ -33,13 +33,18 @@ public class OrderDetail {
     private Order order;
 
     @ManyToOne
-    @JoinColumn(name="did", nullable=false)
+    @JoinColumn(name="did", nullable=true)
     private Drink drink;
 
     @ManyToOne
-    @JoinColumn(name="dsid", nullable=false)
+    @JoinColumn(name="fid", nullable=true)
+    private Food food;
+
+    @ManyToOne
+    @JoinColumn(name="dsid", nullable=true)
     private DrinkSize drinkSize;
 
+    
     public int getId() {
         return id;
     }
@@ -102,5 +107,13 @@ public class OrderDetail {
 
     public void setDrinkSize(DrinkSize drinkSize) {
         this.drinkSize = drinkSize;
+    }
+
+    public Food getFood() {
+        return food;
+    }
+
+    public void setFood(Food food) {
+        this.food = food;
     }
 }

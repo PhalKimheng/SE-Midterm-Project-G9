@@ -1,13 +1,9 @@
 package se.group9.gicCafe.model;
-import se.group9.gicCafe.model.Order;
 
 import java.security.Timestamp;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -33,7 +29,7 @@ public class User {
     @Column(name = "gender")
     private String gender;
 
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    // @DateTimeFormat(pattern = "dd-MM-yyyy")
     @Column(name = "date_of_birth")
     private Date date_of_birth;
 
@@ -42,8 +38,9 @@ public class User {
 
     private String password;
 
-    @Column(name = "last_login")
-    private Timestamp last_login; 
+
+    // @Column(name = "last_login")
+    // private Date login; 
 
     @Column(name = "role")
     private String role;
@@ -115,13 +112,13 @@ public class User {
         this.date_of_birth = date_of_birth;
     }
 
-    public Timestamp getLast_login() {
-        return last_login;
-    }
+    // public Timestamp getLast_login() {
+    //     return last_login;
+    // }
 
-    public void setLast_login(Timestamp last_login) {
-        this.last_login = last_login;
-    }
+    // public void setLast_login(Timestamp last_login) {
+    //     this.last_login = last_login;
+    // }
 
     public String getRole() {
         return role;

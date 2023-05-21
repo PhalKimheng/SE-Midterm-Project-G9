@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import se.group9.gicCafe.model.User;
+
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Column;
@@ -24,7 +26,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @CreationTimestamp
     @Column(name = "order_date")
     private Date order_date;
 
