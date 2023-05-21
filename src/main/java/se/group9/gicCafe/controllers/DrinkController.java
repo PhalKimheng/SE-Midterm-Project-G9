@@ -44,13 +44,15 @@ public class DrinkController {
 
     @GetMapping("drink-selection-order-info")
     public String drinkSelection(Model model,
-                                @RequestParam(value = "id",required = false, defaultValue = "1") long ctg_id    
+                                @RequestParam(value = "id",required = false, defaultValue = "0") long ctg_id    
     ){
-        model.addAttribute("drinkList", categoryRepository.findById(ctg_id).get().getDrink());
         model.addAttribute("orderDetails", orderDetailRepository.findAll());
         model.addAttribute("categoryList", categoryRepository.findAll());
-
-        orderDetailRepository.findById((long)1).get().getSubtotal();
+        if(ctg_id==0){
+            model.addAttribute("drinkList", drinkRepository.findAll());
+            return "drinkSelection_orderInfo";
+        }
+        model.addAttribute("drinkList", categoryRepository.findById(ctg_id).get().getDrink());
         return "drinkSelection_orderInfo";
     }
 
