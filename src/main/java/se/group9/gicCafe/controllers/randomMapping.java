@@ -14,4 +14,8 @@ public class randomMapping {
     public String addCashier(){
         return "addCashier";
     }
+    @GetMapping("/printreceipt")
+    public String printReceipt(){
+        return "printReceipt";
+    }
 }
