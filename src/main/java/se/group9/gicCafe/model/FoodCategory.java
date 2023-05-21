@@ -21,6 +21,9 @@ public class FoodCategory {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "code")
+    private String code;
+
     @OneToMany(mappedBy="foodCategory")
     private List<Food> food = new ArrayList<>();
 
@@ -46,5 +49,13 @@ public class FoodCategory {
 
     public void setFood(List<Food> food) {
         this.food = food;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }

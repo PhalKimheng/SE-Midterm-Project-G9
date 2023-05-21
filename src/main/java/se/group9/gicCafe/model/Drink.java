@@ -25,6 +25,9 @@ public class Drink {
 
     @Column(name = "note")
     private String note;
+
+    @Column(name = "code")
+    private String code;
     
     @ManyToOne
     @JoinColumn(name="dcid", nullable=false)
@@ -82,5 +85,13 @@ public class Drink {
 
     public void setOrderDetail(List<OrderDetail> orderDetail) {
         this.orderDetail = orderDetail;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }

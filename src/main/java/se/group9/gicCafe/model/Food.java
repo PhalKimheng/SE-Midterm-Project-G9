@@ -29,6 +29,9 @@ public class Food {
     @Column(name = "price")
     private double price;
 
+    @Column(name = "code")
+    private String code;
+
     @ManyToOne
     @JoinColumn(name="fcid", nullable=false)
     private FoodCategory foodCategory;
@@ -82,6 +85,14 @@ public class Food {
 
     public void setOrderDetail(List<OrderDetail> orderDetail) {
         this.orderDetail = orderDetail;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }    
 
     
