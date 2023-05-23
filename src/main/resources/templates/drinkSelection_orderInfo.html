@@ -9,6 +9,458 @@
     <!-- <script src="./tailwind.js"></script> -->
     <link rel="stylesheet" th:href="@{./css/drinkSelection_orderInfo.css}">
 </head>
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: sans-serif;
+        padding: 0;
+        margin: 0;
+    }
+
+    ::-webkit-scrollbar {
+        width: 1.2vh;
+        height: 1.2vh;
+    }
+
+    ::-webkit-scrollbar-track {
+        border: 0.01vh solid rgb(114, 114, 114);
+        border-radius: 1rem;
+        margin-block: 1rem;
+        margin-inline: 3rem;
+
+    }
+
+    ::-webkit-scrollbar-thumb {
+        border: 0.01vh solid rgb(114, 114, 114);
+        border-radius: 1rem;
+
+        background-image: linear-gradient(120deg, #ffb75e 10%, #ed8f03 100%);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background-image: linear-gradient(120deg, #eda143 10%, #cd7d05 100%);
+    }
+
+    button {
+        background: transparent;
+        border: none;
+    }
+
+    button:hover {
+        cursor: pointer;
+    }
+
+    hr {
+        padding: 0;
+        margin: 0;
+    }
+
+
+    .M-drink-selection {
+        height: 100vh;
+        width: 100%;
+        display: flex;
+
+        overflow: hidden;
+    }
+
+    /*######################################  section left   ############################################# */
+    /*######################################  section left   ############################################# */
+    /*######################################  section left   ############################################# */
+    /*######################################  section left   ############################################# */
+    .M-sec-left {
+        width: 50%;
+        height: 100%;
+        border: none;
+        border-right: 1px solid #6FC3DF;
+
+        position: relative;
+    }
+
+    .M-sec-left button:hover {
+        cursor: pointer;
+    }
+
+
+
+    #category {
+        width: 49vw;
+        display: flex;
+        padding-top: .5rem;
+        height: 4rem;
+        /* background-color: red;; */
+    }
+
+
+    .M-category-button {
+        width: fit-content;
+        height: 2.6rem;
+        margin-left: .4rem;
+
+
+        display: flex;
+        align-items: center;
+        font-weight: 600;
+        border: 2px solid hsl(273, 80%, 60%);
+        border-radius: 4px;
+
+
+
+    }
+
+
+    .M-category-button button {
+        width: fit-content;
+        height: 2.6rem;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .M-category-button button svg {
+        height: 1.5rem;
+        rotate: -90deg;
+    }
+
+    .M-category-button button:hover {
+        color: blue;
+    }
+
+    .M-categoryList-wrapper {
+        padding-left: .3rem;
+        height: 3.4rem;
+        overflow-x: auto;
+        overflow-y: hidden;
+        margin-bottom: 3px;
+
+    }
+
+    #categoryList {
+        width: fit-content;
+        border: 1px solid transparent;
+        border-top: 0;
+
+        display: flex;
+        gap: .5rem;
+        box-sizing: border-box;
+        z-index: 10;
+        font-weight: 600;
+
+    }
+
+    .M-classList-toggle {
+        flex-wrap: wrap;
+        position: absolute;
+        background-color: white;
+    }
+
+
+    #categoryList form {
+        border: none;
+    }
+
+    .M-category-name {
+        height: 2.6rem;
+        min-width: 5rem;
+        max-width: 7rem;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 2px solid black;
+        border-radius: 4px;
+
+    }
+
+    .M-category-name:hover {
+        /* color: #E73D85; */
+        border-color: #E73D85;
+        color: white;
+        background-color: rgb(0, 0, 0);
+    }
+
+
+    #category-data {
+        height: 90vh;
+        overflow: auto;
+
+    }
+
+    #category-data> :first-child {
+        margin: .3rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: .75rem;
+        justify-content: center;
+    }
+
+
+    .M-drink-data {
+        height: 10.5rem;
+        width: 10.5rem;
+
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .M-drink-data>:first-child {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #c2c2c2;
+        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        border-radius: 4px;
+        overflow: hidden;
+    }
+
+    .M-drink-data>:first-child:hover {
+        position: absolute;
+        animation: resize-animated .15s forwards ease-in-out;
+    }
+
+    .M-drink-data>:first-child:active {
+        background-color: #e3e3e3;
+
+    }
+
+    @keyframes resize-animated {
+        0% {
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        100% {
+            left: -1%;
+            width: 102%;
+            height: 102%;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 1.5), 0 2px 4px -2px rgba(0, 0, 0, 0.5);
+        }
+    }
+
+    .M-drink-data strong {
+        height: 35%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+
+    .M-drink-data-img-wrapper {
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .M-drink-data-img-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+
+
+    /*######################################  section right   ############################################# */
+    /*######################################  section right   ############################################# */
+    /*######################################  section right   ############################################# */
+    /*######################################  section right   ############################################# */
+    .M-sec-right {
+        width: 50%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border: none;
+        border-left: 1px solid #6FC3DF;
+
+        overflow: auto;
+
+        /* background-color: var(); */
+    }
+
+    .M-sec-right>strong {
+        margin-top: .5rem;
+        font-size: 1.2rem;
+        padding: 0 1rem 0 1rem;
+
+        border-bottom: 2px solid black;
+    }
+
+
+    .M-orderInfo {
+        padding-left: 0;
+        margin-top: 1rem;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        row-gap: .3rem;
+        align-items: center;
+
+    }
+
+    .M-orderInfo>* {
+        height: 2.2rem;
+        width: 97%;
+        border: 2px solid transparent;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        border: .5px solid hsl(0, 0%, 75%);
+        box-shadow: 0 3px 4px hsl(0, 0%, 70%);
+        /* box-shadow: 0 2px 4px hsl(0, 0%, 44%); */
+        font-weight: 500;
+    }
+
+    .M-orderInfo>*:hover {
+        border-color: hsl(270, 93%, 54%) !important;
+        box-shadow: 0 3px 4px hsl(0, 0%, 55%) !important;
+        /* border-color: #7a7a7a; */
+
+    }
+
+    /* .M-orderInfo input {
+    padding: .2rem 2px;
+    width: 3rem;
+    border: 2px solid transparent;
+    border-radius: 4px;
+}
+
+.M-orderInfo input:hover {
+    border-color: blue;
+} */
+
+    .M-orderInfo>*>:nth-child(1) {
+        width: 11%;
+        padding-left: 1.2rem;
+
+    }
+
+    .M-orderInfo>*>:nth-child(2) {
+        width: 30%;
+        padding-left: .5rem;
+
+    }
+
+    .M-orderInfo>*>:nth-child(3) {
+        width: 12%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .M-orderInfo>*>:nth-child(4) {
+        width: 21%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .M-orderInfo>*>:nth-child(5) {
+        width: 8%;
+        margin-left: 4%;
+    }
+
+    .M-orderInfo>*>:last-child {
+        display: flex;
+        margin-right: .5rem;
+        margin-left: auto;
+
+    }
+
+    .M-orderInfo>*>:last-child>* {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* background-color: red; */
+
+    }
+
+
+
+    .M-orderInfo>*>:last-child :hover {
+        color: blue;
+    }
+
+    .M-rotate-ctg-up {
+        animation: toggle-ctg-up forwards 200ms;
+    }
+
+    @keyframes toggle-ctg-up {
+        0% {
+            rotate: 0deg;
+        }
+
+        100% {
+            rotate: 180deg;
+        }
+    }
+
+    .M-rotate-ctg-down {
+        animation: toggle-ctg-down forwards 200ms;
+    }
+
+    @keyframes toggle-ctg-down {
+        0% {
+            rotate: 180deg;
+        }
+
+        100% {
+            rotate: 360deg;
+        }
+    }
+
+
+    /* ------- !necessary but.... -------- */
+    .ctg-text-see-all-button {
+        position: relative;
+    }
+
+    .ctg-text-see-all-button div {
+        width: 6.5rem;
+        font-size: .6rem;
+        font-weight: normal;
+        position: absolute;
+        border: 0.001px solid rgb(198, 198, 198);
+        background-color: #f2f2f2;
+        border-radius: 2px;
+        top: -1rem;
+        left: -5px;
+        z-index: 20;
+        display: none;
+    }
+
+
+    .ctg-text-see-all-button:hover div {
+        display: block;
+    }
+
+    /* ----------------------- */
+
+
+    .hv-ap-btn:hover .btn-ap {
+        display: block !important;
+    }
+
+    .btn-ap {
+        display: none !important;
+    }
+
+    /* -----border when click for category---- */
+    .CTG-on-hover {
+        border-color: #E73D85;
+        color: white;
+        background-color: rgb(0, 0, 0);
+    }
+</style>
 
 <body>
 
@@ -16,14 +468,13 @@
         <section class="M-sec-left">
             <div id="category">
                 <div class="M-category-button">
-                    <form action="#" th:action="@{/drink-selection-order-info}" method="get">
-                        <input type="hidden" name="id" th:value="0">
-                        <button type="submit">
-                            <Strong class="ctg-text-see-all-button">Category
-                                <div>click to see all drinks</div>
-                            </Strong>
-                        </button>
-                    </form>
+
+                    <button onclick="getDrinkByCategory(this)" th:value="0">
+                        <Strong class="ctg-text-see-all-button">Category
+                            <div>click to see all drinks</div>
+                        </Strong>
+                    </button>
+
 
                     <button onclick="viewAllCategory(this)">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -38,13 +489,13 @@
                 <!-- get category -->
                 <div class="M-categoryList-wrapper">
                     <div id="categoryList">
-                        <form action="#" th:action="@{/drink-selection-order-info}" method="get"
-                            th:each="category : ${categoryList}">
+                        <div th:each="category : ${categoryList}">
                             <input type="hidden" name="id" th:value="${category.id}">
-                            <button type="submit" class="M-category-name">
+                            <button class="M-category-name" onclick="getDrinkByCategory(this)"
+                                th:value="${category.id}">
                                 <Strong th:text="${category.name}"></Strong>
                             </button>
-                        </form>
+                        </div>
                     </div>
                 </div>
 
@@ -53,19 +504,7 @@
 
             <!-- get drink belong to the selected category -->
             <div id="category-data">
-                <div>
-                    <div class="M-drink-data" th:each="drink : ${drinkList}">
-                        <div>
-                            <div class="M-drink-data-img-wrapper">
-                                <img th:src="@{/}+${drink.imagePath}" draggable="false">
-                            </div>
-                            <hr width="100%">
-                            <strong th:text="${drink.name}">
-                                drink name
-                            </strong>
-                        </div>
-                    </div>
-                </div>
+                <div th:replace="fragments/Drink_FoodData :: drink_food"></div>
             </div>
         </section>
         <section class="M-sec-right">
@@ -78,7 +517,6 @@
                     <div th:text="${order.getDrink().getName()}">drink name</div>
                     <div th:text="${order.getDrinkSize().getSize()}">size</div>
                     <div>
-                        <!-- <input type="number" min="1" th:value="${order.getQuantity()}"> -->
                         <di th:th:text="${order.getQuantity()}"></di>
                     </div>
                     <div th:text="${order.getSubtotal()}">price</div>
@@ -124,6 +562,30 @@
                     }
                 }
                 isToggle = !isToggle;
+            }
+
+
+            let hasPreviousNode = false;
+            const drinks_ofCTG = document.getElementById("category-data");
+            function getDrinkByCategory(node) {
+                console.log(node.value);
+                let xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        // console.log(this.responseText);
+                        drinks_ofCTG.innerHTML = this.responseText;
+                    }
+                };
+                xhr.open("POST", "drink-selection-order-info?id=" + node.value, true);
+                xhr.send();
+
+                node.classList.add("CTG-on-hover")
+                // drinks_ofCTG.style.borderc
+                if (hasPreviousNode && hasPreviousNode !== node) {
+                    hasPreviousNode.classList.remove("CTG-on-hover")
+                }
+
+                hasPreviousNode = node
             }
         </script>
 </body>

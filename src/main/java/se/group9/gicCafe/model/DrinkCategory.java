@@ -27,8 +27,11 @@ public class DrinkCategory {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "code")
+    private String code;
+
     @OneToMany(mappedBy="drinkCategory")
     private List<Drink> drink = new ArrayList<>();
 
-    
+
 }
