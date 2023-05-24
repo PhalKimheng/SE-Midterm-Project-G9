@@ -28,16 +28,19 @@ public class OrderDetail {
     @Column(name = "subtotal")
     private double subtotal;
 
+    @Column(name = "size")
+    private String size;
+
     @ManyToOne
     @JoinColumn(name="oid", nullable=false)
     private Order order;
 
     @ManyToOne
-    @JoinColumn(name="did", nullable=true)
+    @JoinColumn(name="did")
     private Drink drink;
 
     @ManyToOne
-    @JoinColumn(name="fid", nullable=true)
+    @JoinColumn(name="fid")
     private Food food;
 
     
@@ -103,5 +106,13 @@ public class OrderDetail {
 
     public void setFood(Food food) {
         this.food = food;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
     }
 }

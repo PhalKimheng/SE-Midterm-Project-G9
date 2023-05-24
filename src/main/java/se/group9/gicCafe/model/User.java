@@ -1,8 +1,8 @@
 package se.group9.gicCafe.model;
 
-import java.security.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -40,7 +40,7 @@ public class User {
 
 
     @Column(name = "last_login")
-    private Date last_login; 
+    private LocalDateTime last_login; 
 
     @Column(name = "role")
     private String role;
@@ -112,11 +112,11 @@ public class User {
         this.date_of_birth = date_of_birth;
     }
 
-    public Date getLast_login() {
+    public LocalDateTime getLast_login() {
         return last_login;
     }
 
-    public void setLast_login(Date last_login) {
+    public void setLast_login(LocalDateTime last_login) {
         this.last_login = last_login;
     }
 

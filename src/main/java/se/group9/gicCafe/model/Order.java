@@ -47,7 +47,7 @@ public class Order {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name="tid", nullable=false)
+    @JoinColumn(name="tid")
     private Tables tables;
 
     @OneToMany(mappedBy="order")
