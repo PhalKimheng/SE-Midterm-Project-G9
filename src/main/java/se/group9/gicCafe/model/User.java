@@ -1,13 +1,9 @@
 package se.group9.gicCafe.model;
-// import se.group9.gicCafe.model.Order;
 
-import java.security.Timestamp;
-// import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.List;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,13 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "users")
 public class User {
@@ -39,7 +29,7 @@ public class User {
     @Column(name = "gender")
     private String gender;
 
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    // @DateTimeFormat(pattern = "dd-MM-yyyy")
     @Column(name = "date_of_birth")
     private Date date_of_birth;
 
@@ -48,8 +38,9 @@ public class User {
 
     private String password;
 
+
     @Column(name = "last_login")
-    private Timestamp last_login; 
+    private LocalDateTime last_login; 
 
     @Column(name = "role")
     private String role;
@@ -57,4 +48,83 @@ public class User {
     @OneToMany(mappedBy="user")
     private List<Order> order = new ArrayList<>();
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public List<Order> getOrder() {
+        return order;
+    }
+
+    public void setOrder(List<Order> order) {
+        this.order = order;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public Date getDate_of_birth() {
+        return date_of_birth;
+    }
+
+    public void setDate_of_birth(Date date_of_birth) {
+        this.date_of_birth = date_of_birth;
+    }
+
+    public LocalDateTime getLast_login() {
+        return last_login;
+    }
+
+    public void setLast_login(LocalDateTime last_login) {
+        this.last_login = last_login;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 } 

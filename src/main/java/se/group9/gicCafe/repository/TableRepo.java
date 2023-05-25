@@ -1,9 +1,9 @@
 package se.group9.gicCafe.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import se.group9.gicCafe.model.User;
 
+import se.group9.gicCafe.model.Tables;
 
-public interface UserRepository extends JpaRepository<User, Long>{
+public interface TableRepo extends JpaRepository<Tables, Integer>{
     
 }

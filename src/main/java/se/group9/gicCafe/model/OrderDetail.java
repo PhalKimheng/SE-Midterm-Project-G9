@@ -34,16 +34,20 @@ public class OrderDetail {
     @Column(name = "subtotal")
     private double subtotal;
 
+    @Column(name = "size")
+    private String size;
+
     @ManyToOne
     @JoinColumn(name="oid", nullable=false)
     private Order order;
 
     @ManyToOne
-    @JoinColumn(name="did", nullable=false)
+    @JoinColumn(name="did")
     private Drink drink;
 
     @ManyToOne
-    @JoinColumn(name="dsid", nullable=false)
-    private DrinkSize drinkSize;
+    @JoinColumn(name="fid")
+    private Food food;
 
+    
 }

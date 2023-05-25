@@ -1,15 +1,13 @@
 <div th:fragment="drink_food">
-    <!-- <div> -->
         <div class="M-drink-data" th:each="drink : ${drinkList}">
             <div>
                 <div class="M-drink-data-img-wrapper">
-                    <img th:src="@{/}+${drink.imagePath}" draggable="false">
+                    <!-- image of the drink -->
+                    <img th:src="@{/}+${drink.image}" draggable="false">
                 </div>
                 <hr width="100%">
-                <strong th:text="${drink.name}">
-                    drink name
+l                    drink name
                 </strong>
             </div>
         </div>
-    <!-- </div> -->
 </div>
