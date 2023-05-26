@@ -72,6 +72,8 @@ public class UsersController {
     public String getDrinkSelectionView(@PathVariable("table") String table, Model model) {
 
         int tid = Integer.valueOf(table.replaceAll("table", ""));
+        model.addAttribute("tableNumber", tid);
+
         List<OrderDetail> orderDetail = orderService.getOrderByID(tid).getOrderDetail();
         if (orderDetail.size()==0)  model.addAttribute("NoData", true);
         model.addAttribute("orderDetails", orderDetail);
@@ -106,10 +108,13 @@ public class UsersController {
         orderDetailService.deleteOrderDetailByID(id);
 
         int tid = Integer.valueOf(table.replaceAll("table", ""));
-        model.addAttribute("orderDetails", orderService.getOrderByID(tid).getOrderDetail());
+        List<OrderDetail> orderDetail = orderService.getOrderByID(tid).getOrderDetail();
+        if (orderDetail.size()==0)  model.addAttribute("NoData", true);
+        model.addAttribute("orderDetails", orderDetail);
 
         return "fragments/OrderDetail :: orderDetail_of_table";
     }
+
 
     // ----------------------------
 
@@ -125,4 +130,6 @@ public class UsersController {
         drinkCategoryService.savAndFlushDrinkCategory(drinkCategory);
         return "redirect:/tables/add-category";
     }
+
+    //
 }
