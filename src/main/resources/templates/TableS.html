@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TableSelection</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+</head>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        /* font-family: sans-serif; */
+    }
+
+
+    ::-webkit-scrollbar {
+        width: 0.04;
+        height: 0.04vh;
+    }
+
+    ::-webkit-scrollbar-track {
+        /* border: 0.01vh solid rgb(114, 114, 114); */
+        border-radius: 1rem;
+        margin-block: 1rem;
+        margin-inline: 3rem;
+
+    }
+
+    ::-webkit-scrollbar-thumb {
+        border: 0.01vh solid rgb(8, 1, 1);
+        border-radius: 0.5rem;
+
+        background-image: linear-gradient(120deg, #ffb75e 10%, #ed8f03 100%);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background-image: linear-gradient(120deg, #eda143 10%, #cd7d05 100%);
+    }
+
+    .main {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+
+    }
+
+    .box1 {
+        width: 50%;
+        height: 100%;
+        overflow-y: auto;
+        display: flex;
+        justify-content: center;
+        background-color: rgb(8, 8, 83);
+    }
+
+    .box1>:first-child {
+        align-items: center;
+        width: fit-content;
+        height: fit-content;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .box1>:first-child>*:hover {
+        cursor: pointer;
+        background-color: green;
+    }
+
+    .box1>:first-child>* {
+        /* background-color: rgb(255, 255, 255); */
+        background-color: red;
+        width: 100px;
+        height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: xx-large;
+
+        border: 1px solid black;
+        border-radius: 4px;
+        margin: .5rem;
+
+    }
+
+    /* ############################################### */
+    /* ############################################### */
+    /* ############################################### */
+    /* ############################################### */
+    /* ############################################### */
+    /* ############################################### */
+    /* ############################################### */
+    /* ############################################### */
+    /* ############################################### */
+    .box2 {
+        width: 50%;
+        height: 100%;
+        background-color: rgb(92, 165, 237);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        position: relative;
+    }
+
+    .box2>strong {
+        padding: 1rem;
+        font-size: 2rem;
+    }
+
+    #sub-box {
+        width: 90px;
+        height: 90px;
+        background-color: rgb(0, 0, 0);
+        /* float: left; */
+    }
+
+    .information {
+        width: 520px;
+        height: 300px;
+        font-size: 2rem;
+        /* background-color: #eddabe; */
+    }
+
+    #table {
+        width: 100%;
+        color: rgb(24, 23, 23);
+        /* background-color: red; */
+
+    }
+
+    #status {
+
+        color: rgb(24, 23, 23);
+
+    }
+
+    #order {
+        display: flex;
+        color: rgb(24, 23, 23);
+
+    }
+
+    #T_order {
+        color: #cd7d05;
+    }
+
+    .V-orderData {
+        display: flex;
+    }
+
+    a {
+        width: 100px;
+        height: 100px;
+        background-color: blue;
+    }
+
+    .V-logout {
+        padding: 0.3rem 1rem .3rem 1rem;
+        font-weight: 700;
+        background-color: rgb(56, 3, 245);
+        color: white;
+        right: 0;
+        top: 0;
+        position: absolute;
+        border-radius: 8px;
+        border: none;
+    }
+
+    .V-logout:active {
+        cursor: pointer;
+        background-color: rgb(39, 249, 39);
+    }
+
+    .V-edit {
+        height: 1.5rem;
+        width: 1.7rem;
+        border: none;
+        background-color: inherit;
+    }
+
+    /* .V-bgc-in-shop {
+        background-color: #3df197;
+    } */
+
+    .V-bgc-out-shop {
+        background-color: hsl(109, 82%, 54%) !important;
+    }
+</style>
+
+<body>
+    <div class="main">
+        <section class="box1">
+            <div id="tables">
+                <button th:each="table: ${tableList}" class="box">
+                    <div th:text="${table.id}"></div>
+                </button>
+            </div>
+
+
+        </section>
+
+        <section class="box2">
+            <button class="V-logout">
+                Logout
+            </button>
+
+            <Strong>Tables Information</Strong>
+            <div class="information">
+                <div id="table">
+                    <strong>Table:</strong><span>1</span>
+                    <button class="V-edit"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                        </svg>
+                    </button>
+                </div>
+                <div id="status">
+                    <strong>Status:</strong>
+                    <span th:if="${available}">available</span>
+                    <span th:if="${busy}">busy</span>
+                    <span th:if="${unpaid}">unpaid</span>
+                </div>
+                <div id="order">
+                    <span><strong id="T_order">Orders:</strong></span>
+                    <div class="V-orderList">
+                        <div class="V-orderData">
+                            <p style="padding-left:.4rem; padding-right: .4rem;">ice americano </p>
+                            (<p>R</p>x
+                            <p>10</p>)
+                        </div>
+                        <!-- <div class="V-orderData">
+                            <p style="padding-left:.4rem; padding-right: .4rem;">ice americano </p>
+                            (<p>R</p>x
+                            <p>10</p>)
+                        </div> -->
+                        <!-- <div class="V-orderData">
+                            <p style="padding-left:.4rem; padding-right: .4rem;">ice americano </p>
+                            (<p>R</p>x
+                            <p>10</p>)
+                        </div>
+                        <div class="V-orderData">
+                            <p style="padding-left:.4rem; padding-right: .4rem;">ice americano </p>
+                            (<p>R</p>x
+                            <p>10</p>)
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+    </div>
+</body>
+<script>
+    const tables = document.querySelectorAll("box").childNodes;
+    let length = (tables.length - 2) / 2;
+
+
+    // for (let tb of tables) {
+    //     console.log(tb);
+    //     tb.classList.add("V-bgc-out-shop");
+    // }
+
+</script>
+
+</html>

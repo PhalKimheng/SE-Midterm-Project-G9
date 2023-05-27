@@ -8,8 +8,24 @@
     <title>Document</title>
 </head>
 <style>
-    .wrapper-crudDrink {
+    * {
         box-sizing: border-box;
+
+    }
+    
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+    .wrapper {
+        width: 100%;
+        height: 100vh;
+        /* background-color: #29ca34; */
+        position: relative;
+    }
+
+    .wrapper-crudDrink {
         width: 50rem;
         height: 25rem;
 
@@ -69,7 +85,7 @@
     .input-box {
         width: 100%;
         height: 1.7rem;
-        margin: .5rem 0;
+        margin: .31rem 0;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -82,8 +98,9 @@
     }
 
     .input-box select {
-        width: 74%;
+        width: 60%;
         height: 100%;
+        margin-left: 2.6rem;
     }
 
     /* ---- */
@@ -140,7 +157,7 @@
 
     }
 
-    .button-wrapper a{
+    .button-wrapper a {
         text-decoration: none;
         padding: .3rem 1rem 1.3rem 1rem;
         color: white;
@@ -150,15 +167,43 @@
         border: 2px solid black;
         border-radius: 4px;
     }
+
     /* -----price box R M G */
-    .price-box{
+    .price-box {
         padding: 0 .3rem;
         width: 70%;
         display: flex;
         justify-content: space-evenly;
     }
-    .price-box input{
+
+    .price-box input {
         width: 3rem;
+    }
+
+    .ctg_-box {
+        height: 100%;
+        width: 1.7rem;
+        border: 1px solid black;
+        border-radius: 2px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .ctg_-box button {
+        border: none;
+        height: 100%;
+        background-color: #000000;
+        width: 100%;
+        color: white;
+
+        font-size: 1.2rem;
+    }
+
+    .ctg_-box button:hover {
+        cursor: pointer;
+        background-color: #000000;
     }
 
 
@@ -193,83 +238,120 @@
         max-width: 100%;
         max-height: 17.9rem;
     }
+
+    .add-category {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        margin: auto;
+
+        z-index: 10;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        background-color: #c66f18;
+
+
+    }
+
+    iframe {
+        height: 50%;
+        width: 50%;
+        border: none;
+        overflow: hidden;
+
+    }
 </style>
 
 <body>
-    <div class="wrapper-crudDrink">
-        <section>
-            <Strong>New Drink</Strong>
-        </section>
-        <section>
-            <form action="#" th:action="@{/addDrink}" th:object="${drink}" method="post"
-                enctype="multipart/form-data" onsubmit="false">
-                <div class="form-left">
-                    <div class="input-box">
-                        <label>Drink Code</label>
-                        <input type="text" th:field="*{code}" required>
+    <div class="wrapper">
+        <div class="wrapper-crudDrink">
+            <section>
+                <Strong>New Drink</Strong>
+            </section>
+            <section>
+                <form action="#" th:action="@{/admin/add-drink}" th:object="${drink}" method="post"
+                    enctype="multipart/form-data" onsubmit="false">
+                    <div class="form-left">
+                        <div class="input-box">
+                            <label>Drink Code</label>
+                            <input type="text" th:field="*{code}" required>
+                        </div>
+
+                        <div class="input-box">
+                            <label>Drink name</label>
+                            <input type="text" th:field="*{name}" required>
+                        </div>
+
+                        <div class="input-box">
+                            <label>Category</label>
+                            <select name="dcid" th:field="*{drinkCategory.id}">
+                                <div th:each="category :${categoryList}">
+
+                                    <option th:text="${category.name}" th:value="${category.id}"></option>
+
+                                </div>
+                            </select>
+                            <div class="ctg_-box">
+                                <button type="button" id="add-category">
+                                    +
+                                </button>
+                            </div>
+                        </div>
+                        <div class="input-box" style="height: 3rem;">
+                            <label>Price</label>
+                            <div class="price-box">
+                                <div>
+                                    <label>R</label>
+                                    <input type="number" value="1" step="0.1" min="0.1" required name="size_R"
+                                        th:field="*{size_R}">
+                                </div>
+                                <div>
+                                    <label>L</label>
+                                    <input type="number" value="1" step="0.1" min="0.1" required name="size_L"
+                                        th:field="*{size_L}">
+                                </div>
+                                <div>
+                                    <label>G</label>
+                                    <input type="number" value="1" step="0.1" min="0.1" required name="size_G"
+                                        th:field="*{size_G}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="input-box-note">
+                            <label>Note</label>
+                            <textarea th:field="*{note}"></textarea>
+                        </div>
+
+                        <div class="button-wrapper">
+
+                            <span></span>
+                            <span>
+                                <button type="submit">OK</button>
+                                <a href="/drink-selection-order-info">Cancel</a>
+                            </span>
+
+                        </div>
                     </div>
-
-                    <div class="input-box">
-                        <label>Drink name</label>
-                        <input type="text" th:field="*{name}" required>
-                    </div>
-
-                    <div class="input-box">
-                        <label>Category</label>
-                        <select name="dcid" th:field="*{drinkCategory.id}">
-                            <div th:each="category :${categoryList}">
-
-                                <option th:text="${category.name}" value="1">1</option>
-
+                    <div class="form-right">
+                        <div>
+                            <div class="wrapperImg">
+                                <img id="preview" src="" alt="">
                             </div>
-                        </select>
-                    </div>
-                    <div class="input-box" style="height: 3rem;">
-                        <label>Price</label>
-                        <div class="price-box">
-                            <div>
-                                <label>R</label>
-                                <input type="number" value="0" step="0.1" min="0" required name="sizeR">
-                            </div>
-                            <div>
-                                <label>L</label>
-                                <input type="number" value="0" step="0.1" min="0" required name="sizeL">
-                            </div>
-                            <div>
-                                <label>G</label>
-                                <input type="number" value="0" step="0.1" min="0" required name="sizeG">
-                            </div>
+                        </div>
+                        <div>
+                            <input type="file" name="uploadImg" onchange="previewFile()" required>
                         </div>
                     </div>
 
-                    <div class="input-box-note">
-                        <label>Note</label>
-                        <textarea th:field="*{note}"></textarea>
-                    </div>
-
-                    <div class="button-wrapper">
-
-                        <span></span>
-                        <span>
-                            <button type="submit">OK</button>
-                            <a href="/drink-selection-order-info">Cancel</a>
-                        </span>
-
-                    </div>
-                </div>
-                <div class="form-right">
-                    <div>
-                        <div class="wrapperImg">
-                            <img id="preview" src="" alt="">
-                        </div>
-                    </div>
-                    <div>
-                        <input type="file" name="image" onchange="previewFile()" required>
-                    </div>
-                </div>
-
-            </form>
-        </section>
+                </form>
+            </section>
+        </div>
+        <!-- <div class="add-category">
+            <iframe src="/tables/add-category"></iframe>
+        </div> -->
     </div>
 </body>
 <script>
@@ -285,7 +367,13 @@
         if (file) {
             reader.readAsDataURL(file);
         }
+
+
+        function addCategory(node) {
+
+        }
     }
+
 </script>
 
 </html>
