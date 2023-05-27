@@ -50,19 +50,6 @@ public class AdminController {
         this.orderDetailService = orderDetailService;
     }
 
-    @GetMapping("/add-category")
-    public String addCategoryScree(Model model) {
-        model.addAttribute("ctg", new DrinkCategory());
-        // model.addAttribute("isValid", true);
-        return "newCategory";
-    }
-
-    @PostMapping("/add-category")
-    public String addCategor(@ModelAttribute("ctg") DrinkCategory drinkCategory, Model model) {
-        drinkCategoryService.savAndFlushDrinkCategory(drinkCategory);
-        return "redirect:/admin/add-category";
-    }
-
     @GetMapping("/add-drink")
     String addDrink(Model model) {
         model.addAttribute("categoryList", drinkCategoryService.getAllDrinkCategories());
@@ -70,6 +57,7 @@ public class AdminController {
         // model.addAttribute("drinkSizes", drinkSizeList);
 
         model.addAttribute("drink", new Drink(0, null, null, null, 1, 1, 1, null, null, null));
+        model.addAttribute("ctg", new DrinkCategory(0, null, null, null));
         return "newDrink";
     }
 
@@ -79,7 +67,7 @@ public class AdminController {
             Model model) throws IOException {
 
         String fileName = multipartFile.getOriginalFilename();
-        String uploadDir = "user-photos/Drink";
+        String uploadDir = "user-photos/Drinks_Foods";
 
         FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
         drink.setImage(uploadDir + "/" + fileName);
@@ -87,6 +75,18 @@ public class AdminController {
         drinkService.saveDrink(drink);
 
         return "redirect:/admin/add-drink";
+    }
+
+    @PostMapping("/add-category")
+    public String addCategor(@ModelAttribute("ctg") DrinkCategory drinkCategory, Model model) {
+        drinkCategoryService.savAndFlushDrinkCategory(drinkCategory);
+        return "redirect:/admin/add-category";
+    }
+
+    @GetMapping("/get-cetegory-view")
+    public String getCTGView(Model model) {
+        model.addAttribute("ctg", new DrinkCategory());
+        return "fragments/AddCetegoryView :: new_category";
     }
 
 }

@@ -11,12 +11,12 @@
         margin: 0;
         padding: 0;
     }
-    .wrapper{
+    .M_-wrapper{
         height: 100vh;
         width: 100%;
         background-color: red;
     }
-    .new-category-wrapper{
+    .M_-new-category-wrapper{
         margin: auto;
         height: fit-content;
         width: 18rem;
@@ -29,15 +29,15 @@
         display: flex;
         flex-direction: column;
     }
-    .new-category-wrapper strong{
+    .M_-new-category-wrapper strong{
         padding-left: .5rem;
         border-bottom: 2px solid black;
     }
     
-    .new-category-wrapper>div{
+    .M_-new-category-wrapper>div{
         margin-top: .5rem;
     }
-    .ctg-data{
+    .M_-ctg-data{
         margin: .5rem;
         width: 100%;
         display: flex;
@@ -49,17 +49,17 @@
         /* margin-left: .5rem; */
     }
 
-    .ctg-data input{
+    .M_-ctg-data input{
         width: 50%;
     }
-    .ctg-submit{
+    .M_-ctg-submit{
         width: 100%;
         display: flex;
         justify-content: space-around;
     }
 
-    .ctg-submit button,
-    .ctg-submit a{
+    .M_-ctg-submit button,
+    .M_-ctg-submit a{
         text-decoration: none;
         padding: 0 .6rem 0 .6rem;
         background-color: rgb(255, 255, 255);
@@ -70,42 +70,19 @@
         border: 2px solid black;
         border-radius:2px ;
     }
-    .ctg-submit button:hover,
-    .ctg-submit a:hover{
+    .M_-ctg-submit button:hover,
+    .M_-ctg-submit a:hover{
         color: hsl(37, 100%, 50%);
     }
 
-    .ctg-submit button:active,
-    .ctg-submit a:active{
+    .M_-ctg-submit button:active,
+    .M_-ctg-submit a:active{
         color: hsl(0, 0%, 100%);
     }
 
 </style>
 <body>
-    <div class="wrapper">
-        <div class="new-category-wrapper">
-            <Strong>New category</Strong>
-            <div>
-                <form action="#" th:action="@{/tables/add-category}" th:object="${ctg}" method="post" onsubmit="true">
-                    <div class="ctg-data">
-                        <label>Category code</label>
-                        <input type="text" name="code" th:field="*{code}"  required value="">
-                    </div>
-    
-                    <div class="ctg-data">
-                        <label>Category name</label>
-                        <input type="text" name="name" th:field="*{name}" required value="">
-                    </div>
-                    <div class="ctg-submit">
-                        <button type="submit">OK</button>
-                        <a href="/add-drink">Cancel</a>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+
 </body>
-<script>
-    // console.log(window.location.href);
-</script>
+
 </html>

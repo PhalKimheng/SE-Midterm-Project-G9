@@ -10,18 +10,18 @@
 <style>
     * {
         box-sizing: border-box;
+        font-family: sans-serif
 
     }
-    
-        body {
-            margin: 0;
-            padding: 0;
-        }
+
+    body {
+        margin: 0;
+        padding: 0;
+    }
 
     .wrapper {
         width: 100%;
         height: 100vh;
-        /* background-color: #29ca34; */
         position: relative;
     }
 
@@ -29,7 +29,6 @@
         width: 50rem;
         height: 25rem;
 
-        /* border: 2px solid black; */
         border-radius: 4px;
 
         display: flex;
@@ -40,6 +39,7 @@
     .wrapper-crudDrink>:first-child {
         width: 100%;
         border: 2px solid black;
+
         border-bottom: none;
         padding: .7rem
     }
@@ -262,6 +262,106 @@
         overflow: hidden;
 
     }
+
+    /* -------new category css ------------------*/
+    /* -------new category css ------------------*/
+    /* -------new category css ------------------*/
+    /* -------new category css ------------------*/
+    /* -------new category css ------------------*/
+    #categoryView {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top: 0;
+
+    
+        transform: translateY(-100%);
+        transition: 300ms;
+
+        background-color: transparent;
+    }
+
+
+    .category-appear {
+        transform: translateY(0) !important;
+    }
+
+    .M_-wrapper {
+        all: unset;
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top: 2rem;
+        /* background-color: #fff; */
+    }
+
+    .M_-new-category-wrapper {
+        margin: auto;
+        height: fit-content;
+        width: 18rem;
+
+        background-color: white;
+
+        padding-bottom: .5rem;
+        border: 2px solid black;
+        border-radius: 2px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .M_-new-category-wrapper strong {
+        padding-left: .5rem;
+        border-bottom: 2px solid black;
+    }
+
+    .M_-new-category-wrapper>div {
+        margin-top: .5rem;
+    }
+
+    .M_-ctg-data {
+        margin: .5rem;
+        width: 100%;
+        display: flex;
+        /* justify-content: space-between; */
+    }
+
+    .ctg-data label {
+        width: 6.5rem;
+        /* margin-left: .5rem; */
+    }
+
+    .M_-ctg-data input {
+        width: 50%;
+    }
+
+    .M_-ctg-submit {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .M_-ctg-submit button,
+    .M_-ctg-submit a {
+        text-decoration: none;
+        padding: 0 .6rem 0 .6rem;
+        background-color: rgb(255, 255, 255);
+        color: rgb(255, 255, 255);
+        font-weight: bold;
+
+        background-color: #000000;
+        border: 2px solid black;
+        border-radius: 2px;
+    }
+
+    .M_-ctg-submit button:hover,
+    .M_-ctg-submit a:hover {
+        color: hsl(37, 100%, 50%);
+    }
+
+    .M_-ctg-submit button:active,
+    .M_-ctg-submit a:active {
+        color: hsl(0, 0%, 100%);
+    }
 </style>
 
 <body>
@@ -294,7 +394,7 @@
                                 </div>
                             </select>
                             <div class="ctg_-box">
-                                <button type="button" id="add-category">
+                                <button type="button" onclick="addCategory(this)">
                                     +
                                 </button>
                             </div>
@@ -349,9 +449,13 @@
                 </form>
             </section>
         </div>
-        <!-- <div class="add-category">
-            <iframe src="/tables/add-category"></iframe>
-        </div> -->
+
+
+        <div id="categoryView">
+            <div th:replace="~{fragments/AddCetegoryView :: new_category}"></div>
+
+        </div>
+
     </div>
 </body>
 <script>
@@ -368,12 +472,14 @@
             reader.readAsDataURL(file);
         }
 
-
-        function addCategory(node) {
-
-        }
+        
+        
     }
-
+    const categoryView = document.getElementById("categoryView");
+    function addCategory(node) {
+        console.log(1111);
+        categoryView.classList.add("category-appear");
+    }
 </script>
 
 </html>

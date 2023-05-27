@@ -1,10 +1,11 @@
 <ul class="M-orderInfo" id="orderInfomation" th:fragment="orderDetail_of_table">
     <div th:if="${NoData}" class="no-orderInfo-data">
-        <strong >No order</strong>
+        <strong>No order</strong>
     </div>
     <li th:each="order : ${orderDetails}" class="hv-ap-btn">
         <div th:text="${order.id}">1</div>
-        <div th:text="${order.getDrink().getName()}">drink name</div>
+        <div th:text="${order.getDrink()} == null ? ${order.getFood().getName()} : ${order.getDrink().getName()}">
+        </div>
         <div th:text="${order.getSize()}">size</div>
         <div>
             <di th:text="${order.getQuantity()}"></di>

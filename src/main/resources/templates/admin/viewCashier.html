@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../static/css/eighth.css">
+    <link href="https://use.fontawesome.com/releases/v6.2.1/css/all.css" rel="stylesheet">
+    <style>
+        #vc-activity-management {
+            border-bottom: 1px solid black;
+            padding: 5px 10px;
+        }
+
+        .vc-activity-btn {
+            border: none;
+            border-right: 1px solid black;
+            background-color: white;
+            padding: 0 10px;
+        }
+
+        .vc-activity-btn:last-child {
+            border-right: none;
+        }
+
+        #vc-content-container {
+            display: flex;
+        }
+
+        #vc-left {
+            width: 50%;
+            height: 95vh;
+            border-right: 1px solid black;
+        }
+
+        #vc-information-tab {
+            border-bottom: 1px solid black;
+            padding-left: 30px;
+            background-color: rgb(200, 200, 200);
+        }
+
+        #vc-cashier-btn, 
+        #vc-drink-btn, 
+        #vc-food-btn {
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            width: 70px;
+            border-bottom: none;
+            padding: 3px 0;
+        } 
+
+        #vc-cashier, 
+        #vc-drink,
+        #vc-food {
+            width: 98%; 
+            margin: auto;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        th {
+            padding-top: 5px;
+            padding-bottom: 5px;
+            text-align: left;
+            background-color: #dae3f3;
+        }
+
+        th:last-child,
+        td:last-child {
+            width: 80px;
+            text-align: center;
+        }
+
+        /* with javascript */
+        /* 
+        #vc-cashier-btn {
+            background-color: white;
+        }
+
+        #vc-drink-table {
+            display: none;
+        }
+
+        #vc-food-table {
+            display: none;
+        }
+
+        #vc-drink-information {
+            display: none;
+        }
+
+        #vc-food-information {
+            display: none;
+        } */
+    </style>
+</head>
+
+<body style="border: 1px solid black;">
+    <div id="vc-container">
+        <div id="vc-activity-management">
+            <button class="vc-activity-btn" >New Cashier</button>
+            <button class="vc-activity-btn" >New Drink</button>
+            <button class="vc-activity-btn" >New Food</button>
+            <button class="vc-activity-btn" >New Category</button>
+            <button class="vc-activity-btn" >Order history</button>
+            <button class="vc-activity-btn" >Manage Table</button>
+        </div>
+
+        <div id="vc-content-container">
+            <!-- ////////////////////////// -->
+            <!--       left side            -->
+            <!-- ////////////////////////// -->
+            <div id="vc-left">
+                <div id="vc-information-tab">
+                    <a th:href="@{/cashiers}"><button id="vc-cashier-btn">Cashiers</button></a>
+                    <a th:href="@{/drinks}"><button id="vc-drink-btn">Drinks</button></a>
+                    <a th:href="@{/foods}"><button id="vc-food-btn">Food</button></a>
+                </div>
+
+                <!-- ////////////////////////// -->
+                <!--        Cashier             -->
+                <!-- ////////////////////////// -->
+
+                <table id="vc-cashier">
+                    <tr>
+                        <th></th>
+                        <th class="vc-cashier-name">Cashier Name</th>
+                        <th class="vc-cashier-login">Login</th>
+                        <th class="vc-cashier-action">Action</th>
+                    </tr>
+                   
+                    
+                    <tr th:each = "user: ${users}">
+                        <td th:text = "${user.id}"></td>
+                        <td th:text = "${user.firstname} + ' ' +${user.lastname}"></td>
+                        <td th:text = "${user.username}"></td>
+                        <td>
+                            <a th:href = "@{/cashiers/detail/{id}(id = ${user.id})}"><i class="fa-sharp fa-solid fa-circle-chevron-down"></i></a>
+                            <a th:href = "@{/cashiers/edit/{id}(id = ${user.id})}"><i class="fa-sharp fa-solid fa-pencil"></i></a>
+                            <a th:href = "@{/cashiers/{id}(id = ${user.id})}"><i class="fa-solid fa-trash-can"></i></a>
+                        </td> 
+                    </tr>               
+                </table>
+            </div>
+
+            <div id="vc-right">
+        
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

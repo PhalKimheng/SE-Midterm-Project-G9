@@ -1,0 +1,23 @@
+<div th:fragment="new_category" class="M_-wrapper">
+    <div class="M_-new-category-wrapper">
+        <Strong>New category</Strong>
+        <div>
+            <form action="#" th:action="@{/admin/add-category}" th:object="${ctg}" method="post" onsubmit="true">
+                <div class="M_-ctg-data">
+                    <label>Category code</label>
+                    <input type="text" name="code" th:field="*{code}" required value="">
+                </div>
+
+                <div class="M_-ctg-data">
+                    <label>Category name</label>
+                    <input type="text" name="name" th:field="*{name}" required value="">
+                </div>
+                <div class="M_-ctg-submit">
+                    <button type="submit">OK</button>
+                    <!-- <a href="/add-drink">Cancel</a> -->
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

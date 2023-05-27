@@ -23,6 +23,8 @@ import se.group9.gicCafe.model.Order;
 import se.group9.gicCafe.model.OrderDetail;
 import se.group9.gicCafe.service.DrinkCategoryService;
 import se.group9.gicCafe.service.DrinkService;
+import se.group9.gicCafe.service.FoodCategoryService;
+import se.group9.gicCafe.service.FoodService;
 import se.group9.gicCafe.service.OrderDetailService;
 import se.group9.gicCafe.service.OrderService;
 import se.group9.gicCafe.service.TableService;
@@ -40,16 +42,23 @@ public class UsersController {
     private OrderService orderService;
     @Autowired
     private OrderDetailService orderDetailService;
+    @Autowired
+    private FoodCategoryService foodCategoryService;
+    @Autowired
+    private FoodService foodService;
 
     public UsersController(DrinkService drinkService, TableService tableService,
             DrinkCategoryService drinkCategoryService, OrderService orderService,
-            OrderDetailService orderDetailService) {
+            OrderDetailService orderDetailService, FoodCategoryService foodCategoryService,
+            FoodService foodService) {
         super();
         this.drinkService = drinkService;
         this.tableService = tableService;
         this.drinkCategoryService = drinkCategoryService;
         this.orderService = orderService;
         this.orderDetailService = orderDetailService;
+        this.foodCategoryService = foodCategoryService;
+        this.foodService = foodService;
     }
 
     @GetMapping("")
@@ -67,7 +76,6 @@ public class UsersController {
         return "redirect:/tables";
     }
 
-
     @GetMapping("/{table}/drink-food-selection-order-info")
     public String getDrinkSelectionView(@PathVariable("table") String table, Model model) {
 
@@ -75,61 +83,84 @@ public class UsersController {
         model.addAttribute("tableNumber", tid);
 
         List<OrderDetail> orderDetail = orderService.getOrderByID(tid).getOrderDetail();
-        if (orderDetail.size()==0)  model.addAttribute("NoData", true);
+        if (orderDetail.size() == 0)
+            model.addAttribute("NoData", true);
         model.addAttribute("orderDetails", orderDetail);
 
         model.addAttribute("categoryList", drinkCategoryService.getAllDrinkCategories());
-        model.addAttribute("drinkList", drinkService.getAllDrinks());
+        model.addAttribute("drink_FoodList", drinkService.getAllDrinks());
 
         return "drinkSelection_orderInfo";
     }
 
-    @GetMapping("/{table}/drink-food-selection-order-info/get")
-    public String GetdrinkData(String table, Model model,
-            @RequestParam(value = "id") long ctg_id) {
+    // -------get category - default is drink category-------------
+    @GetMapping("/{table}/drink-food-selection-order-info/get-category")
+    public String getCategory(@RequestParam String ctg_name, Model model) {
+        if (ctg_name.toLowerCase().equals("drink")) {
+            model.addAttribute("categoryList", drinkCategoryService.getAllDrinkCategories());
+        } else {
+            model.addAttribute("categoryList", foodCategoryService.getAllFoodCategories());
+        }
+        return "fragments/CategoryData :: category_data";
+    }
 
-        // int tid = Integer.valueOf(table.replaceAll("table", ""));
-        // model.addAttribute("orderDetails",
-        // orderService.getOrderByID(tid).getOrderDetail());
-        // model.addAttribute("categoryList",
-        // drinkCategoryService.getAllDrinkCategories());
+    // ------- get data about foods or drinks---------------------------
+    @GetMapping("/{table}/drink-food-selection-order-info/get-foods")
+    public String GetFoodsData(String table, Model model,
+            @RequestParam(value = "id") int ctg_id) {
 
         if (ctg_id == 0) {
-            model.addAttribute("drinkList", drinkService.getAllDrinks());
+            model.addAttribute("drink_FoodList", foodService.getAllFoods());
         } else
-            model.addAttribute("drinkList",
-                    drinkCategoryService.getDrinkCategoryByID((int) ctg_id).getDrink());
+            model.addAttribute("drink_FoodList",
+                    foodCategoryService.getFoodCategoryByID(ctg_id).getFood());
         return "fragments/Drink_FoodData :: drink_food";
     }
 
-    @GetMapping("/{table}/drink-food-selection-order-info/delete")
-    public String delete(Model model, @PathVariable("table") String table, @RequestParam int id) {
+    @GetMapping("/{table}/drink-food-selection-order-info/get-drinks")
+    public String GetdrinkData(String table, Model model,
+            @RequestParam(value = "id") int ctg_id) {
+
+        if (ctg_id == 0) {
+            model.addAttribute("drink_FoodList", drinkService.getAllDrinks());
+        } else
+            model.addAttribute("drink_FoodList",
+                    drinkCategoryService.getDrinkCategoryByID(ctg_id).getDrink());
+
+        return "fragments/Drink_FoodData :: drink_food";
+    }
+
+    // ---------- delete order detail-------------------
+
+    @GetMapping("/{table}/drink-food-selection-order-info/delete-order")
+    public String deleteOrderDetail(Model model, @PathVariable("table") String table, @RequestParam int id) {
 
         orderDetailService.deleteOrderDetailByID(id);
 
         int tid = Integer.valueOf(table.replaceAll("table", ""));
         List<OrderDetail> orderDetail = orderService.getOrderByID(tid).getOrderDetail();
-        if (orderDetail.size()==0)  model.addAttribute("NoData", true);
+        if (orderDetail.size() == 0)
+            model.addAttribute("NoData", true);
         model.addAttribute("orderDetails", orderDetail);
 
         return "fragments/OrderDetail :: orderDetail_of_table";
     }
 
-
     // ----------------------------
 
-    @GetMapping("/add-category")
-    public String addCategoryScree(Model model) {
-        model.addAttribute("ctg", new DrinkCategory());
-        // model.addAttribute("isValid", true);
-        return "newCategory";
-    }
+    // @GetMapping("/add-category")
+    // public String addCategoryScree(Model model) {
+    // model.addAttribute("ctg", new DrinkCategory());
+    // // model.addAttribute("isValid", true);
+    // return "newCategory";
+    // }
 
-    @PostMapping("/add-category")
-    public String addCategor(@ModelAttribute("ctg") DrinkCategory drinkCategory, Model model) {
-        drinkCategoryService.savAndFlushDrinkCategory(drinkCategory);
-        return "redirect:/tables/add-category";
-    }
+    // @PostMapping("/add-category")
+    // public String addCategor(@ModelAttribute("ctg") DrinkCategory drinkCategory,
+    // Model model) {
+    // drinkCategoryService.savAndFlushDrinkCategory(drinkCategory);
+    // return "redirect:/tables/add-category";
+    // }
 
     //
 }

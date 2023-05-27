@@ -59,5 +59,13 @@ public class DrinkCategory {
         this.code = code;
     }
 
+    public DrinkCategory(int id, String name, String code, List<Drink> drink) {
+        this.id = id;
+        this.name = name;
+        this.code = code;
+        this.drink = drink;
+    }
+    public DrinkCategory(){}
+
     
 }
