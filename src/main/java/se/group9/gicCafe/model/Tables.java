@@ -3,6 +3,7 @@ package se.group9.gicCafe.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,13 +16,13 @@ import jakarta.persistence.Table;
 @Table(name = "tables")
 public class Tables {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "status")
     private String status;
 
-    @OneToMany(mappedBy="tables")
+    @OneToMany(mappedBy="tables", cascade = CascadeType.ALL)
     private List<Order> order = new ArrayList<>();
 
     public int getId() {

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import se.group9.gicCafe.constants.CONSTANT;
 import se.group9.gicCafe.model.Order;
 import se.group9.gicCafe.model.Tables;
 import se.group9.gicCafe.repository.TableRepo;
@@ -36,7 +37,7 @@ public class TableServiceImp implements TableService{
     public Order getPendingOrderByTableID(int tid) {
         List<Order> orderList=tableRepo.getReferenceById(tid).getOrder();
         for(Order order : orderList){
-            if(!order.isStatus()) return order;
+            if(!order.getStatus().equals(CONSTANT.Order_Status_Pending)) return order;
         }
 
         return null;//this will heppen if the table is freeeeeeeeee so any orders belong to this table has already been finished

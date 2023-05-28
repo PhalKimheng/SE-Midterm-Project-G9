@@ -3,6 +3,7 @@ package se.group9.gicCafe.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,7 +27,7 @@ public class Drink {
     @Column(name = "note")
     private String note;
 
-    @Column(name = "code")
+    @Column(name = "code", unique = true)
     private String code;
     
     @Column(name = "size_R")
@@ -38,15 +39,19 @@ public class Drink {
     @Column(name = "size_G")
     private double size_G;
 
-    @Column(name = "image")
+    @Column(name = "image", columnDefinition = "MEDIUMBLOB")
     private String image;
 
     @ManyToOne
     @JoinColumn(name="dcid", nullable=false)
     private DrinkCategory drinkCategory;
 
-    @OneToMany(mappedBy="drink")
+    @OneToMany(mappedBy="drink", cascade = CascadeType.ALL)
     private List<OrderDetail> orderDetail = new ArrayList<>();
+    
+    public Drink(int i, Object object, Object object2, Object object3, int j, int k, int l, Object object4,
+            Object object5, Object object6) {
+    }
 
     public int getId() {
         return id;
@@ -70,6 +75,22 @@ public class Drink {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public DrinkCategory getDrinkCategory() {
+        return drinkCategory;
+    }
+
+    public void setDrinkCategory(DrinkCategory drinkCategory) {
+        this.drinkCategory = drinkCategory;
+    }
+
+    public List<OrderDetail> getOrderDetail() {
+        return orderDetail;
+    }
+
+    public void setOrderDetail(List<OrderDetail> orderDetail) {
+        this.orderDetail = orderDetail;
     }
 
     public String getCode() {
@@ -112,20 +133,7 @@ public class Drink {
         this.image = image;
     }
 
-    public DrinkCategory getDrinkCategory() {
-        return drinkCategory;
-    }
-
-    public void setDrinkCategory(DrinkCategory drinkCategory) {
-        this.drinkCategory = drinkCategory;
-    }
-
-    public List<OrderDetail> getOrderDetail() {
-        return orderDetail;
-    }
-
-    public void setOrderDetail(List<OrderDetail> orderDetail) {
-        this.orderDetail = orderDetail;
+    public Drink() {
     }
 
     public Drink(int id, String name, String note, String code, double size_R, double size_L, double size_G,
@@ -141,6 +149,6 @@ public class Drink {
         this.drinkCategory = drinkCategory;
         this.orderDetail = orderDetail;
     }
-    public Drink(){};
-   
+    
+    
 }

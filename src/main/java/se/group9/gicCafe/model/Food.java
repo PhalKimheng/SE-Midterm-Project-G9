@@ -3,6 +3,7 @@ package se.group9.gicCafe.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,7 +15,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "foods")
+@Table( name = "foods" ) 
 public class Food {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,17 +30,17 @@ public class Food {
     @Column(name = "price")
     private double price;
 
-    @Column(name = "code")
+    @Column(name = "code", unique = true)
     private String code;
 
-    @Column(name = "image")
+    @Column(name = "image", columnDefinition = "MEDIUMBLOB")
     private String image;
 
     @ManyToOne
-    @JoinColumn(name = "fcid", nullable = false)
+    @JoinColumn(name="fcid", nullable=false)
     private FoodCategory foodCategory;
 
-    @OneToMany(mappedBy = "food")
+    @OneToMany(mappedBy="food", cascade = CascadeType.ALL)
     private List<OrderDetail> orderDetail = new ArrayList<>();
 
     public int getId() {
@@ -74,22 +75,6 @@ public class Food {
         this.price = price;
     }
 
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
     public FoodCategory getFoodCategory() {
         return foodCategory;
     }
@@ -106,19 +91,21 @@ public class Food {
         this.orderDetail = orderDetail;
     }
 
-    public Food(int id, String name, String note, double price, String code, String image, FoodCategory foodCategory,
-            List<OrderDetail> orderDetail) {
-        this.id = id;
-        this.name = name;
-        this.note = note;
-        this.price = price;
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
         this.code = code;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
         this.image = image;
-        this.foodCategory = foodCategory;
-        this.orderDetail = orderDetail;
-    }
+    }    
 
-    public Food() {
-    }
-
+    
 }

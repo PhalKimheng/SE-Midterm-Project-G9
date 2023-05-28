@@ -9,7 +9,538 @@
     <link rel="stylesheet" th:href="@{/css/drinkSelection_orderInfo.css}">
 </head>
 <style>
+    * {
+        box-sizing: border-box;
+    }
 
+    body {
+        font-family: sans-serif;
+        padding: 0;
+        margin: 0;
+    }
+
+    ::-webkit-scrollbar {
+        width: 1.2vh;
+        height: 1.2vh;
+    }
+
+    ::-webkit-scrollbar-track {
+        border: 0.01vh solid rgb(114, 114, 114);
+        border-radius: 1rem;
+        margin-block: 1rem;
+        margin-inline: 3rem;
+
+    }
+
+    ::-webkit-scrollbar-thumb {
+        border: 0.01vh solid rgb(114, 114, 114);
+        border-radius: 1rem;
+
+        background-image: linear-gradient(120deg, #ffb75e 10%, hsl(36, 98%, 48%) 100%);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background-image: linear-gradient(120deg, #eda143 10%, hsl(36, 98%, 41%) 100%);
+    }
+
+    ::-webkit-scrollbar-thumb:active {
+        background-image: linear-gradient(120deg, #eda143 10%, hsl(36, 95%, 30%) 100%);
+    }
+
+    button {
+        background: transparent;
+        border: none;
+    }
+
+    button:hover {
+        cursor: pointer;
+    }
+
+    hr {
+        padding: 0;
+        margin: 0;
+    }
+
+
+
+    .M-drink-selection {
+        height: 100vh;
+        width: 100%;
+        display: flex;
+        overflow: hidden;
+
+        position: relative;
+    }
+
+    /*######################################  section left   ############################################# */
+    /*######################################  section left   ############################################# */
+    /*######################################  section left   ############################################# */
+    /*######################################  section left   ############################################# */
+    .M-sec-left {
+        width: 50%;
+        height: 100%;
+        border: none;
+        border-right: 1px solid #6FC3DF;
+
+        position: relative;
+    }
+
+    .M-sec-left button:hover {
+        cursor: pointer;
+    }
+
+
+
+    #category {
+        width: 49vw;
+        display: flex;
+        padding-top: .24rem;
+        height: 3.7rem;
+    }
+
+
+    .M-category-button {
+        min-width: 6.85rem;
+        height: 2.6rem;
+        margin-left: .4rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-weight: 600;
+        border: 2px solid hsl(273, 80%, 60%);
+        border-radius: 4px;
+        overflow: hidden;
+        /* overflow: hidden; */
+
+        z-index: 11;
+        background-color: rgb(255, 255, 255);
+        position: relative;
+        top: 1px;
+        transition: .2s;
+    }
+
+    .M-category-button:hover {
+        height: 7.83rem;
+    }
+
+
+    .M-category-button #allDrinks {
+        width: fit-content;
+        height: calc(2.6rem - 2px);
+        border-radius: 2px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+
+
+    }
+
+
+    .M-food-drink-ctg-wrapper {
+        position: absolute;
+        top: 2.6rem;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        row-gap: .1rem;
+        z-index: 11;
+    }
+
+    .M-food-drink-ctg-wrapper>* {
+        z-index: 11;
+        min-width: 100%;
+        width: fit-content;
+        height: calc(2.6rem - 2px);
+        border-radius: 2px;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        border-radius: 2px;
+        /* border: 1px solidorange; */
+        /* background-color: hsl(42, 100%, 45%); */
+    }
+
+    /* .M-drinks-category{
+    width: fit-content;
+    height: calc(2.6rem - 2px);
+    border-radius: 2px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #1bcf3f;
+
+} */
+
+
+
+    .M-category-button button svg {
+        height: 1.5rem;
+        rotate: -90deg;
+    }
+
+    .M-category-button button:hover {
+        color: blue;
+    }
+
+    .M-categoryList-wrapper {
+        padding-left: .3rem;
+        height: 3.5rem;
+        overflow-x: auto;
+        overflow-y: hidden;
+        margin-bottom: 3px;
+
+    }
+
+    #categoryList {
+        width: fit-content;
+
+        display: flex;
+        gap: .5rem;
+        box-sizing: border-box;
+        z-index: 10;
+        font-weight: 600;
+
+        border: 1px solid hsl(240, 100%, 80%);
+        border-radius: 4px;
+
+
+    }
+
+    .M-classList-toggle {
+        flex-wrap: wrap;
+        position: absolute;
+        background-color: white;
+    }
+
+
+
+
+    .M-category-name {
+        height: 2.6rem;
+        min-width: 5rem;
+        max-width: 7rem;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 2px solid black;
+        border-radius: 4px;
+
+    }
+
+    .M-category-name:hover {
+        /* color: #E73D85; */
+        border-color: #E73D85;
+        color: white;
+        background-color: rgb(0, 0, 0);
+    }
+
+
+    #category-data {
+        height: 90vh;
+        overflow: auto;
+
+    }
+
+    #category-data> :first-child {
+        margin: .3rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: .75rem;
+        justify-content: center;
+    }
+
+
+    .M-drink-data {
+        height: 10.5rem;
+        width: 10.5rem;
+
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .M-drink-data>:first-child {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #c2c2c2;
+        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        border-radius: 4px;
+        overflow: hidden;
+    }
+
+    .M-drink-data>:first-child:hover {
+        position: absolute;
+        animation: resize-animated .15s forwards ease-in-out;
+    }
+
+    .M-drink-data>:first-child:active {
+        background-color: #e3e3e3;
+
+    }
+
+    @keyframes resize-animated {
+        0% {
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        100% {
+            left: -1%;
+            width: 102%;
+            height: 102%;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 1.5), 0 2px 4px -2px rgba(0, 0, 0, 0.5);
+        }
+    }
+
+    .M-drink-data strong {
+        min-height: 27%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+    }
+
+
+    .M-drink-data-img-wrapper {
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .M-drink-data-img-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+
+
+    /*######################################  section right   ############################################# */
+    /*######################################  section right   ############################################# */
+    /*######################################  section right   ############################################# */
+    /*######################################  section right   ############################################# */
+    .M-sec-right {
+        width: 50%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border: none;
+        border-left: 1px solid #6FC3DF;
+
+        overflow: auto;
+
+        /* background-color: var(); */
+    }
+
+    .M-sec-right>strong {
+        margin-top: .5rem;
+        font-size: 1.2rem;
+        padding: 0 1rem 0 1rem;
+
+        border-bottom: 2px solid black;
+    }
+
+
+    .M-orderInfo {
+        padding-left: 0;
+        margin-top: 1rem;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        row-gap: .3rem;
+        align-items: center;
+
+    }
+
+    .M-orderInfo>* {
+        height: 2.2rem;
+        width: 97%;
+        border: 2px solid transparent;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        border: .5px solid hsl(0, 0%, 75%);
+        box-shadow: 0 3px 4px hsl(0, 0%, 70%);
+        /* box-shadow: 0 2px 4px hsl(0, 0%, 44%); */
+        font-weight: 500;
+    }
+
+    .M-orderInfo>*:hover {
+        border-color: hsl(270, 93%, 54%) !important;
+        box-shadow: 0 3px 4px hsl(0, 0%, 55%) !important;
+        /* border-color: #7a7a7a; */
+
+    }
+
+    /* .M-orderInfo input {
+padding: .2rem 2px;
+width: 3rem;
+border: 2px solid transparent;
+border-radius: 4px;
+}
+
+.M-orderInfo input:hover {
+border-color: blue;
+} */
+
+    .M-orderInfo>*>:nth-child(2) {
+        width: 11%;
+        padding-left: .5rem;
+        /* font-weight: 600; */
+        /* background-color: blue; */
+    }
+
+    .M-orderInfo>*>:nth-child(3) {
+        width: 30%;
+        padding-left: .5rem;
+
+    }
+
+    .M-orderInfo>*>:nth-child(4) {
+        width: 12%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .M-orderInfo>*>:nth-child(5) {
+        width: 20%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .M-orderInfo>*>:nth-child(6) {
+        width: 7%;
+        margin-left: 4%;
+    }
+
+    .M-orderInfo>*>:last-child {
+        display: flex;
+        margin-right: .5rem;
+        margin-left: auto;
+
+    }
+
+    .M-orderInfo>*>:last-child>* {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* background-color: red; */
+
+    }
+
+
+
+    .M-orderInfo>*>:last-child :hover {
+        color: blue;
+    }
+
+    .M-rotate-ctg-up {
+        animation: toggle-ctg-up forwards 200ms;
+    }
+
+    @keyframes toggle-ctg-up {
+        0% {
+            rotate: 0deg;
+        }
+
+        100% {
+            rotate: 180deg;
+        }
+    }
+
+    .M-rotate-ctg-down {
+        animation: toggle-ctg-down forwards 200ms;
+    }
+
+    @keyframes toggle-ctg-down {
+        0% {
+            rotate: 180deg;
+        }
+
+        100% {
+            rotate: 360deg;
+        }
+    }
+
+
+    /* ------- !necessary but.... -------- */
+    .ctg-text-see-all-button {
+        position: relative;
+    }
+
+    .ctg-text-see-all-button div {
+        width: 6.5rem;
+        font-size: .6rem;
+        font-weight: normal;
+        position: absolute;
+        border: 0.001px solid rgb(198, 198, 198);
+        background-color: #f2f2f2;
+        border-radius: 2px;
+        top: -1rem;
+        left: -5px;
+        z-index: 20;
+        display: none;
+    }
+
+
+    .ctg-text-see-all-button:hover div {
+        display: block;
+    }
+
+    /* ----------------------- */
+
+
+    .hv-ap-btn:hover .btn-ap {
+        display: block !important;
+    }
+
+    .btn-ap {
+        display: none !important;
+    }
+
+    /* -----border when click for category---- */
+    .CTG-on-hover {
+        border-color: #E73D85;
+        color: white;
+        background-color: rgb(0, 0, 0);
+
+    }
+
+    .CTG-on-hover svg {
+        filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(212deg) brightness(105%) contrast(103%);
+    }
+
+
+    /* -=-=-=-----=-=-= if no order ---- */
+    .no-orderInfo-data {
+        all: unset;
+        position: relative;
+        width: 100%;
+    }
+
+    .no-orderInfo-data strong {
+        width: fit-content !important;
+        position: absolute;
+        left: 50%;
+        top: 10rem;
+        transform: translate(-50%, -50%);
+        border-radius: 4px;
+    }
 </style>
 
 <body>
@@ -135,13 +666,13 @@
         }
 
 
-        const allDrinks=document.getElementById("allDrinks")
+        const allDrinks = document.getElementById("allDrinks")
 
         let previousNode = allDrinks;
         previousNode.classList.add("CTG-on-hover");
         const drinks_ofCTG = document.getElementById("category-data");
         function fetchFoods_DrinkByCategory(node) {
-            
+
             if (previosSelectedCategory.value == "drink") {
                 fetch(thisPageURL + "/get-drinks?id=" + node.value).then(async (res) => {
                     const data = await res.text();

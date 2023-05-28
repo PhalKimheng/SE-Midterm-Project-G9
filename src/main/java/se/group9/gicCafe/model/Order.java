@@ -1,11 +1,13 @@
 package se.group9.gicCafe.model;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import org.hibernate.annotations.CreationTimestamp;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -39,34 +41,26 @@ public class Order {
     @Column(name = "changed")
     private double changed;
 
-    @Column(name = "staus")
-    private boolean status;
+    @Column(name = "status")
+    private String status;
 
     @ManyToOne
-    @JoinColumn(name = "uid", nullable = false)
+    @JoinColumn(name="uid", nullable=false)
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "tid")
+    @JoinColumn(name="tid")
     private Tables tables;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy="order", cascade = CascadeType.ALL)
     private List<OrderDetail> orderDetail = new ArrayList<>();
-
+    
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public Date getOrder_date() {
-        return order_date;
-    }
-
-    public void setOrder_date(Date order_date) {
-        this.order_date = order_date;
     }
 
     public String getZone() {
@@ -85,14 +79,6 @@ public class Order {
         this.total = total;
     }
 
-    public double getCash_received() {
-        return cash_received;
-    }
-
-    public void setCash_received(double cash_received) {
-        this.cash_received = cash_received;
-    }
-
     public double getChanged() {
         return changed;
     }
@@ -101,12 +87,20 @@ public class Order {
         this.changed = changed;
     }
 
-    public boolean isStatus() {
-        return status;
+    public Date getOrder_date() {
+        return order_date;
     }
 
-    public void setStatus(boolean status) {
-        this.status = status;
+    public void setOrder_date(Date order_date) {
+        this.order_date = order_date;
+    }
+
+    public double getCash_received() {
+        return cash_received;
+    }
+
+    public void setCash_received(double cash_received) {
+        this.cash_received = cash_received;
     }
 
     public User getUser() {
@@ -133,21 +127,11 @@ public class Order {
         this.orderDetail = orderDetail;
     }
 
-    public Order(int id, Date order_date, String zone, double total, double cash_received, double changed,
-            boolean status, User user, Tables tables, List<OrderDetail> orderDetail) {
-        this.id = id;
-        this.order_date = order_date;
-        this.zone = zone;
-        this.total = total;
-        this.cash_received = cash_received;
-        this.changed = changed;
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
         this.status = status;
-        this.user = user;
-        this.tables = tables;
-        this.orderDetail = orderDetail;
-    }
-
-    public Order() {
-    }
-
+    }  
 }

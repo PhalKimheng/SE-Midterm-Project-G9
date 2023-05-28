@@ -1,24 +1,14 @@
 package se.group9.gicCafe.controllers;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-
-import se.group9.gicCafe.config.FileUploadUtil;
-import se.group9.gicCafe.model.Drink;
-import se.group9.gicCafe.model.DrinkCategory;
 import se.group9.gicCafe.model.Order;
 import se.group9.gicCafe.model.OrderDetail;
 import se.group9.gicCafe.model.Tables;
@@ -32,7 +22,7 @@ import se.group9.gicCafe.service.TableService;
 
 @Controller
 @RequestMapping("/tables")
-public class UsersController {
+public class CashiersController {
     @Autowired
     private DrinkService drinkService;
     @Autowired
@@ -48,42 +38,25 @@ public class UsersController {
     @Autowired
     private FoodService foodService;
 
-    public UsersController(DrinkService drinkService, TableService tableService,
-            DrinkCategoryService drinkCategoryService, OrderService orderService,
-            OrderDetailService orderDetailService, FoodCategoryService foodCategoryService,
-            FoodService foodService) {
-        super();
-        this.drinkService = drinkService;
-        this.tableService = tableService;
-        this.drinkCategoryService = drinkCategoryService;
-        this.orderService = orderService;
-        this.orderDetailService = orderDetailService;
-        this.foodCategoryService = foodCategoryService;
-        this.foodService = foodService;
-    }
 
-    
     // table selection
     @GetMapping("")
     public String viewAllTables(Model model) {
-        List<Tables> tables=tableService.getAllTables();
+        List<Tables> tables = tableService.getAllTables();
         model.addAttribute("tableList", tables);
         model.addAttribute("tableCount", tables.size());
+
 
         return "TableS";
     }
 
     @GetMapping("/table")
-    public String getTableInfo(@RequestParam int tid, Model model)
-    {
-    model.addAttribute("tableInfo", tableService.getTableByID(tid));
-    model.addAttribute("orderInfo", tableService.getPendingOrderByTableID(tid).getOrderDetail());
+    public String getTableInfo(@RequestParam int tid, Model model) {
+        model.addAttribute("tableInfo", tableService.getTableByID(tid));
+        model.addAttribute("orderInfo", tableService.getPendingOrderByTableID(tid).getOrderDetail());
 
-    return "fragments/TableInfo :: table-order-info";
+        return "fragments/TableInfo :: table-order-info";
     }
-
-
-
 
     // ex:/tables/table1/drink-food-selection-order-info
     @GetMapping("/{table}/drink-food-selection-order-info")
@@ -98,7 +71,7 @@ public class UsersController {
 
         if (order == null) {
             model.addAttribute("NoData", true);
-            
+
             return "drinkSelection_orderInfo";
         }
 
@@ -174,7 +147,4 @@ public class UsersController {
         return "fragments/OrderDetail :: orderDetail_of_table";
     }
 
-
-
-    
 }

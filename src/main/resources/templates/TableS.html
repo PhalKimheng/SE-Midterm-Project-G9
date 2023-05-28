@@ -223,7 +223,7 @@
             <div id="tableList">
                 <div class="V-table" th:each="table: ${tableList}">
                     <button th:style="${table.id < tableCount/2 ? 'background-color: green' : 'background-color: red'}"
-                            th:class="${!table.status.equals('free')} ? V-bgc-table-busy" th:text="${table.id}"
+                            th:class="${!table.status.equals('available')} ? V-bgc-table-busy" th:text="${table.id}"
                             th:value="${table.id}" th:data-table_status="${table.status}" onclick="fetchTableInfo(this)"> id
                     </button>
                 </div>
@@ -242,50 +242,13 @@
     </div>
 </body>
 <script>
-    const box1 = document.getElementById("box1");
-    const tables = box1.querySelectorAll("button");
-    let length = tables.length
-
-    // setColorForTables();
-    // function setColorForTables() {
-    //     for (let i = 0; i < length; i++) {
-    //         if (i < length / 2) tables[i].classList.add("V-bgc-in-shop");
-    //         else tables[i].classList.add("V-bgc-out-shop");
-    //     }
-    // }
-
-    // setColorForTableStatus()
-    // function setColorForTableStatus() {
-    //     for (let i = 0; i < length; i++) {
-    //         const status = tables[i].dataset.table_status.toLocaleLowerCase();
-
-    //         if (status == "busy") {
-    //             tables[i].classList.add("V-bgc-table-busy");
-    //         } else if (status == "unpaid") {
-    //             tables[i].classList.add("V-bgc-table-unpaid");
-    //         }
-    //     }
-    // }
-
-    // function fetchTableInfo(node) {
-    //     if (node.dataset.table_status.toLocaleLowerCase() == "free") {
-    //         dataset.table_status.toLocaleLowerCase()
-    //         fetch(thisPageURL + "/table?tid=" + node.value).then(async (res) => {
-    //             const data = await res.text();
-
-    //         })
-    //     }
-    // }
-
-
-    const box2 = document.getElementById("box2");
 
     const thisPageURL = window.location.href;
     function fetchTableInfo(node) {
         console.log(node);
         const status = node.dataset.table_status.toLocaleLowerCase();
 
-        if (status == "free") {
+        if (status == "available") {
             window.location.href = thisPageURL + "/table" + node.value + "/drink-food-selection-order-info"
         } else {
             fetch(thisPageURL + "/table?tid=" + node.value).then(async (res) => {
