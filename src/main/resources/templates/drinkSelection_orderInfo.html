@@ -145,7 +145,7 @@
             if (previosSelectedCategory.value == "drink") {
                 fetch(thisPageURL + "/get-drinks?id=" + node.value).then(async (res) => {
                     const data = await res.text();
-                    console.log(data);
+                    // console.log(data);
                     drinks_ofCTG.innerHTML = data;
                 }).catch((err) => {
                     console.log("oops!!!! someting went wrong!!!!!" + err);
@@ -154,7 +154,7 @@
             } else {
                 fetch(thisPageURL + "/get-foods?id=" + node.value).then(async (res) => {
                     const data = await res.text();
-                    console.log(data);
+                    // console.log(data);
                     drinks_ofCTG.innerHTML = data;
                 }).catch((err) => {
                     console.log("oops!!!! someting went wrong!!!!!" + err);
@@ -171,6 +171,7 @@
 
         const orderInfo = document.getElementById("orderInfomation");
         function deleteOrder(node) {
+            console.log(node.value);
             fetch(thisPageURL + "/delete-order?id=" + node.value).then(async (res) => {
                 const data = await res.text();
                 console.log(data);

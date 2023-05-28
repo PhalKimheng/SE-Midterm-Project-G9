@@ -21,6 +21,7 @@ import se.group9.gicCafe.model.Drink;
 import se.group9.gicCafe.model.DrinkCategory;
 import se.group9.gicCafe.model.Order;
 import se.group9.gicCafe.model.OrderDetail;
+import se.group9.gicCafe.model.Tables;
 import se.group9.gicCafe.service.DrinkCategoryService;
 import se.group9.gicCafe.service.DrinkService;
 import se.group9.gicCafe.service.FoodCategoryService;
@@ -61,34 +62,52 @@ public class UsersController {
         this.foodService = foodService;
     }
 
+    
+    // table selection
     @GetMapping("")
     public String viewAllTables(Model model) {
-        model.addAttribute("tableList", tableService.getAllTables());
+        List<Tables> tables=tableService.getAllTables();
+        model.addAttribute("tableList", tables);
+        model.addAttribute("tableCount", tables.size());
 
-        return "tables";
+        return "TableS";
     }
 
-    @PostMapping("/{table}")
-    public String getTableInfo(@PathVariable("table") String table, Model model) {
-        int tid = Integer.valueOf(table.replaceAll("table", ""));
-        model.addAttribute("table", tableService.getTableByID(tid));
+    @GetMapping("/table")
+    public String getTableInfo(@RequestParam int tid, Model model)
+    {
+    model.addAttribute("tableInfo", tableService.getTableByID(tid));
+    model.addAttribute("orderInfo", tableService.getPendingOrderByTableID(tid).getOrderDetail());
 
-        return "redirect:/tables";
+    return "fragments/TableInfo :: table-order-info";
     }
 
+
+
+
+    // ex:/tables/table1/drink-food-selection-order-info
     @GetMapping("/{table}/drink-food-selection-order-info")
     public String getDrinkSelectionView(@PathVariable("table") String table, Model model) {
 
-        int tid = Integer.valueOf(table.replaceAll("table", ""));
-        model.addAttribute("tableNumber", tid);
-
-        List<OrderDetail> orderDetail = orderService.getOrderByID(tid).getOrderDetail();
-        if (orderDetail.size() == 0)
-            model.addAttribute("NoData", true);
-        model.addAttribute("orderDetails", orderDetail);
-
         model.addAttribute("categoryList", drinkCategoryService.getAllDrinkCategories());
         model.addAttribute("drink_FoodList", drinkService.getAllDrinks());
+
+        int tid = Integer.valueOf(table.replaceAll("table", ""));
+
+        Order order = tableService.getPendingOrderByTableID(tid);
+
+        if (order == null) {
+            model.addAttribute("NoData", true);
+            
+            return "drinkSelection_orderInfo";
+        }
+
+        List<OrderDetail> orderDetails = order.getOrderDetail();
+        if (orderDetails.size() == 0) {
+            model.addAttribute("NoData", true);
+        } else {
+            model.addAttribute("orderDetails", orderDetails);
+        }
 
         return "drinkSelection_orderInfo";
     }
@@ -106,7 +125,8 @@ public class UsersController {
 
     // ------- get data about foods or drinks---------------------------
     @GetMapping("/{table}/drink-food-selection-order-info/get-foods")
-    public String GetFoodsData(String table, Model model,
+    public String GetFoodsData(String table,
+            Model model,
             @RequestParam(value = "id") int ctg_id) {
 
         if (ctg_id == 0) {
@@ -131,36 +151,30 @@ public class UsersController {
     }
 
     // ---------- delete order detail-------------------
-
     @GetMapping("/{table}/drink-food-selection-order-info/delete-order")
     public String deleteOrderDetail(Model model, @PathVariable("table") String table, @RequestParam int id) {
 
         orderDetailService.deleteOrderDetailByID(id);
 
         int tid = Integer.valueOf(table.replaceAll("table", ""));
-        List<OrderDetail> orderDetail = orderService.getOrderByID(tid).getOrderDetail();
-        if (orderDetail.size() == 0)
+        Order order = tableService.getPendingOrderByTableID(tid);
+        if (order == null) {
             model.addAttribute("NoData", true);
-        model.addAttribute("orderDetails", orderDetail);
+
+            return "fragments/OrderDetail :: orderDetail_of_table";
+        }
+
+        List<OrderDetail> orderDetails = order.getOrderDetail();
+        if (orderDetails.size() == 0) {
+            model.addAttribute("NoData", true);
+        } else {
+            model.addAttribute("orderDetails", orderDetails);
+        }
 
         return "fragments/OrderDetail :: orderDetail_of_table";
     }
 
-    // ----------------------------
 
-    // @GetMapping("/add-category")
-    // public String addCategoryScree(Model model) {
-    // model.addAttribute("ctg", new DrinkCategory());
-    // // model.addAttribute("isValid", true);
-    // return "newCategory";
-    // }
 
-    // @PostMapping("/add-category")
-    // public String addCategor(@ModelAttribute("ctg") DrinkCategory drinkCategory,
-    // Model model) {
-    // drinkCategoryService.savAndFlushDrinkCategory(drinkCategory);
-    // return "redirect:/tables/add-category";
-    // }
-
-    //
+    
 }
