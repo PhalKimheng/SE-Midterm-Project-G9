@@ -42,5 +42,4 @@ public class UserServiceImp implements UserService{
 	public void deleteUserById(int id) {
 		userRepo.deleteById(id);	
 	}
-    
 }

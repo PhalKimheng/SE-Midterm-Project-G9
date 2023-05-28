@@ -3,6 +3,7 @@ package se.group9.gicCafe.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,14 +30,17 @@ public class Food {
     @Column(name = "price")
     private double price;
 
-    @Column(name = "code")
+    @Column(name = "code", unique = true)
     private String code;
+
+    @Column(name = "image", columnDefinition = "MEDIUMBLOB")
+    private String image;
 
     @ManyToOne
     @JoinColumn(name="fcid", nullable=false)
     private FoodCategory foodCategory;
 
-    @OneToMany(mappedBy="food")
+    @OneToMany(mappedBy="food", cascade = CascadeType.ALL)
     private List<OrderDetail> orderDetail = new ArrayList<>();
 
     public int getId() {
@@ -93,6 +97,14 @@ public class Food {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }    
 
     

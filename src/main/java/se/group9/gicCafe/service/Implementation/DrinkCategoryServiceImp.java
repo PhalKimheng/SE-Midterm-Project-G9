@@ -22,14 +22,8 @@ public class DrinkCategoryServiceImp implements DrinkCategoryService{
         return drinkCategoryRepo.findAll();
     }
 
-    // @Override
-    // public Drink getDrinkById(int id) {
-	// 	return drinkRepo.findById(id).get();
-    // }
-
-    // @Override
-    // public List<DrinkCategory> getAllDrinkCategories() {
-    //     // TODO Auto-generated method stub
-    //     throw new UnsupportedOperationException("Unimplemented method 'getAllDrinkCategories'");
-    // }
+    @Override
+    public DrinkCategory saveDrinkCategory(DrinkCategory drinkCategory) {
+        return drinkCategoryRepo.save(drinkCategory);
+    }
 }

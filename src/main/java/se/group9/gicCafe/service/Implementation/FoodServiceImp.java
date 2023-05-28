@@ -23,7 +23,22 @@ public class FoodServiceImp implements FoodService {
     }
 
     @Override
+    public Food saveFood(Food food) {
+        return foodRepo.save(food);
+    }
+
+    @Override
     public Food getFoodById(int id) {
 		return foodRepo.findById(id).get();
     }
+
+    @Override
+	public Food updateFood(Food food) {
+		return foodRepo.save(food);
+	}
+
+	@Override
+	public void deleteFoodById(int id) {
+		foodRepo.deleteById(id);	
+	}
 }

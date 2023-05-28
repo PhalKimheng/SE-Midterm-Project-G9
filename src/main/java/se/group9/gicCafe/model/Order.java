@@ -1,14 +1,13 @@
 package se.group9.gicCafe.model;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-import se.group9.gicCafe.model.User;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.format.annotation.DateTimeFormat;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -42,6 +41,9 @@ public class Order {
     @Column(name = "changed")
     private double changed;
 
+    @Column(name = "status")
+    private String status;
+
     @ManyToOne
     @JoinColumn(name="uid", nullable=false)
     private User user;
@@ -50,7 +52,7 @@ public class Order {
     @JoinColumn(name="tid")
     private Tables tables;
 
-    @OneToMany(mappedBy="order")
+    @OneToMany(mappedBy="order", cascade = CascadeType.ALL)
     private List<OrderDetail> orderDetail = new ArrayList<>();
     
     public int getId() {
@@ -123,5 +125,13 @@ public class Order {
 
     public void setOrderDetail(List<OrderDetail> orderDetail) {
         this.orderDetail = orderDetail;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }  
 }

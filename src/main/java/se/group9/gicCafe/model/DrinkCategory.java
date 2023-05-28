@@ -3,6 +3,7 @@ package se.group9.gicCafe.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,7 +25,7 @@ public class DrinkCategory {
     @Column(name = "code")
     private String code;
 
-    @OneToMany(mappedBy="drinkCategory")
+    @OneToMany(mappedBy="drinkCategory", cascade = CascadeType.ALL)
     private List<Drink> drink = new ArrayList<>();
     
     public int getId() {

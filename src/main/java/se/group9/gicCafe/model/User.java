@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -33,9 +34,10 @@ public class User {
     @Column(name = "date_of_birth")
     private Date date_of_birth;
 
-    @Column(name = "username")
+    @Column(name = "username", unique = true)
     private String username;
 
+    @Column(name = "password")
     private String password;
 
 
@@ -45,7 +47,10 @@ public class User {
     @Column(name = "role")
     private String role;
 
-    @OneToMany(mappedBy="user")
+    @Column(name = "image", columnDefinition = "LONGTEXT")
+    private String image; 
+
+    @OneToMany(mappedBy="user", cascade = CascadeType.ALL)
     private List<Order> order = new ArrayList<>();
 
     public int getId() {
@@ -126,5 +131,13 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 } 
