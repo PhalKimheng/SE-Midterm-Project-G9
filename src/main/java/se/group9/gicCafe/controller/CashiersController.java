@@ -1,4 +1,4 @@
-package se.group9.gicCafe.controllers;
+package se.group9.gicCafe.controller;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ import se.group9.gicCafe.service.FoodCategoryService;
 import se.group9.gicCafe.service.FoodService;
 import se.group9.gicCafe.service.OrderDetailService;
 import se.group9.gicCafe.service.OrderService;
-import se.group9.gicCafe.service.TableService;
+import se.group9.gicCafe.service.TablesService;
 
 @Controller
 @RequestMapping("/tables")
@@ -26,7 +26,7 @@ public class CashiersController {
     @Autowired
     private DrinkService drinkService;
     @Autowired
-    private TableService tableService;
+    private TablesService tableService;
     @Autowired
     private DrinkCategoryService drinkCategoryService;
     @Autowired

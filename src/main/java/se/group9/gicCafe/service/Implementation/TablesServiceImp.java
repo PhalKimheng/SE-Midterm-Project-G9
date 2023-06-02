@@ -7,13 +7,13 @@ import org.springframework.stereotype.Service;
 import se.group9.gicCafe.constants.CONSTANT;
 import se.group9.gicCafe.model.Order;
 import se.group9.gicCafe.model.Tables;
-import se.group9.gicCafe.repository.TableRepo;
-import se.group9.gicCafe.service.TableService;
+import se.group9.gicCafe.repository.TablesRepo;
+import se.group9.gicCafe.service.TablesService;
 
 @Service
-public class TableServiceImp implements TableService{
-    private TableRepo tableRepo;
-    public TableServiceImp(TableRepo tableRepo){
+public class TablesServiceImp implements TablesService{
+    private TablesRepo tableRepo;
+    public TablesServiceImp(TablesRepo tableRepo){
         super();
         this.tableRepo=tableRepo;
     }

@@ -5,7 +5,7 @@ import java.util.List;
 import se.group9.gicCafe.model.Order;
 import se.group9.gicCafe.model.Tables;
 
-public interface TableService {
+public interface TablesService {
     public List<Tables> getAllTables();
 
     public Tables getTableByID(int id);
