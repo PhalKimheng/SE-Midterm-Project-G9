@@ -10,4 +10,6 @@ public interface DrinkCategoryService {
     DrinkCategory savAndFlushDrinkCategory(DrinkCategory drinkCategory);
 
     DrinkCategory getDrinkCategoryByID(int id);
+    
+    DrinkCategory saveDrinkCategory(DrinkCategory drinkCategory);
 }

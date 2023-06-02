@@ -8,23 +8,30 @@ import se.group9.gicCafe.model.FoodCategory;
 import se.group9.gicCafe.repository.FoodCategoryRepo;
 import se.group9.gicCafe.service.FoodCategoryService;
 
+
 @Service
-public class FoodCategoryServiceImp implements FoodCategoryService {
+public class FoodCategoryServiceImp implements FoodCategoryService{
     private FoodCategoryRepo foodCategoryRepo;
 
-    public FoodCategoryServiceImp( FoodCategoryRepo foodCategoryRepo) {
+    public FoodCategoryServiceImp(FoodCategoryRepo foodCategoryRepo) {
         super();
-        this.foodCategoryRepo=foodCategoryRepo;
+        this.foodCategoryRepo = foodCategoryRepo;
     }
 
     @Override
     public List<FoodCategory> getAllFoodCategories() {
-       return foodCategoryRepo.findAll();
-    }
+        return foodCategoryRepo.findAll();
+     }
 
     @Override
     public FoodCategory getFoodCategoryByID(int id) {
         return foodCategoryRepo.getReferenceById(id);
     }
 
+
+
+    @Override
+    public FoodCategory saveFoodCategory(FoodCategory foodCategory) {
+        return foodCategoryRepo.save(foodCategory);
+    }
 }

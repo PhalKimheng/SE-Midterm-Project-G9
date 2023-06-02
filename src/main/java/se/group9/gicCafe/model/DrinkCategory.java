@@ -28,12 +28,6 @@ public class DrinkCategory {
     @OneToMany(mappedBy="drinkCategory", cascade = CascadeType.ALL)
     private List<Drink> drink = new ArrayList<>();
     
-    public DrinkCategory(int i, Object object, Object object2, Object object3) {
-    }
-
-    public DrinkCategory() {
-    }
-
     public int getId() {
         return id;
     }

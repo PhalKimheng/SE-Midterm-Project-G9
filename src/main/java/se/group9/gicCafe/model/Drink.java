@@ -49,10 +49,6 @@ public class Drink {
     @OneToMany(mappedBy="drink", cascade = CascadeType.ALL)
     private List<OrderDetail> orderDetail = new ArrayList<>();
     
-    public Drink(int i, Object object, Object object2, Object object3, int j, int k, int l, Object object4,
-            Object object5, Object object6) {
-    }
-
     public int getId() {
         return id;
     }

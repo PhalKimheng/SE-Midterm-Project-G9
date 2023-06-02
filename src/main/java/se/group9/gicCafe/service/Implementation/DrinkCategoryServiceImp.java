@@ -35,4 +35,7 @@ public class DrinkCategoryServiceImp implements DrinkCategoryService{
     
 
 
+    public DrinkCategory saveDrinkCategory(DrinkCategory drinkCategory) {
+        return drinkCategoryRepo.save(drinkCategory);
+    }
 }

@@ -10,4 +10,7 @@ public interface FoodCategoryService {
     FoodCategory getFoodCategoryByID(int id);
     
 
+    FoodCategory saveFoodCategory(FoodCategory foodCategory);
+	
+    // FoodCategory getFoodCategoryById(int id);
 }

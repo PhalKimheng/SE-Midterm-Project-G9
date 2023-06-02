@@ -9,7 +9,7 @@ import se.group9.gicCafe.repository.DrinkRepo;
 import se.group9.gicCafe.service.DrinkService;
 
 @Service
-public class DrinkServiceImp implements DrinkService {
+public class DrinkServiceImp implements DrinkService{
     private DrinkRepo drinkRepo;
 
     public DrinkServiceImp(DrinkRepo drinkRepo) {

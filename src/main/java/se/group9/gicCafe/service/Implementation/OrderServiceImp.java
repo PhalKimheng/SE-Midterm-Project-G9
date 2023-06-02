@@ -1,5 +1,7 @@
 package se.group9.gicCafe.service.Implementation;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import se.group9.gicCafe.model.Order;
@@ -21,4 +23,9 @@ public class OrderServiceImp implements OrderService {
         return orderRepo.findById(id).get();
     }
 
+
+    @Override
+    public List<Order> getAllOrders() {
+        return orderRepo.findAll();
+    }
 }
