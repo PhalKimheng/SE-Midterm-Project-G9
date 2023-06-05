@@ -7,4 +7,6 @@ public interface OrderService {
     List<Order> getAllOrders();
 
     Order getOrderByID(int id);
+
+    Order saveOrder(Order order);
 }

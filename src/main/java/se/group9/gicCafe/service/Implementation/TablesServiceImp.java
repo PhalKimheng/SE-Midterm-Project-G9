@@ -39,7 +39,7 @@ public class TablesServiceImp implements TablesService{
     public Order getPendingOrderByTableID(int tid) {
         List<Order> orderList=tablesRepo.getReferenceById(tid).getOrder();
         for(Order order : orderList){
-            if(!order.getStatus().equals(CONSTANT.Order_Status_Pending)) return order;
+            if(order.getStatus().equals(CONSTANT.Order_Status_Pending)) return order;
         }
 
         return null;//this will heppen if the table is freeeeeeeeee so any orders belong to this table has already been finished

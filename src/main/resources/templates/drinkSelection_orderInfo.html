@@ -6,7 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" th:href="@{/css/drinkSelection_orderInfo.css}">
 </head>
 <style>
     * {
@@ -649,6 +648,7 @@ border-color: blue;
 
         const thisPageURL = window.location.href;
 
+
         let previosSelectedCategory = document.getElementById("drink-category-button");
         previosSelectedCategory.classList.add("CTG-on-hover")
         function fetchCategoryData(node) {
@@ -711,6 +711,16 @@ border-color: blue;
             })
         }
 
+
+
+        function chooseOrder(node){
+            if(previosSelectedCategory.value == "drink"){
+                location.href=thisPageURL+"/add-drink?id="+node.dataset.drinkfoodid
+            }else{
+                // fetch(thisPageURL)
+                location.href=thisPageURL+"/add-food?id="+node.dataset.drinkfoodid                
+            }
+        }
     </script>
 </body>
 

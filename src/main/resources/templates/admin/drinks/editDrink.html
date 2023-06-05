@@ -318,7 +318,7 @@
                     <div class="form-right">
                         <div>
                             <div class="wrapperImg">
-                                <img id="preview" src="" alt="" th:src="*{'data:image/jpeg;base64,'+{image}}">
+                                <img id="preview" src="" alt="" th:src="@{'data:image/jpeg;base64,'+*{image}}">
                             </div>
                         </div>
                         <div>

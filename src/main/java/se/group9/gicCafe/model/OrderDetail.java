@@ -115,4 +115,21 @@ public class OrderDetail {
     public void setSize(String size) {
         this.size = size;
     }
+
+    public OrderDetail(int id, int sugar, boolean cream, int quantity, double subtotal, String size, Order order,
+            Drink drink, Food food) {
+        this.id = id;
+        this.sugar = sugar;
+        this.cream = cream;
+        this.quantity = quantity;
+        this.subtotal = subtotal;
+        this.size = size;
+        this.order = order;
+        this.drink = drink;
+        this.food = food;
+    }
+
+    public OrderDetail() {
+    }
+    
 }

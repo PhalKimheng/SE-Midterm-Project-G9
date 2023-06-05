@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import se.group9.gicCafe.service.UserService;
+import se.group9.gicCafe.constants.CONSTANT;
 import se.group9.gicCafe.model.User;
 
 @RequestMapping("/admin")
@@ -55,7 +56,7 @@ public class UserController {
 	public String saveCashier(@RequestParam("file") MultipartFile file,@Validated @ModelAttribute("user") User user) {
 		LocalDateTime today = LocalDateTime.now();
 		user.setLast_login(today);
-		user.setRole("cashier");
+		user.setRole(CONSTANT.Cashier_Role);
 		//input an image
 		String img = StringUtils.cleanPath(file.getOriginalFilename());
 		if(img.contains(".."))
