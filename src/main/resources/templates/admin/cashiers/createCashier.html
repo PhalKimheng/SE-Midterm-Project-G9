@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,7 +17,7 @@
         .wrapper {
             margin: auto;
             width: 800px;
-            height: 400px;
+            height: 430px;
             background: white;
             margin-top: 5%;
             box-shadow: 0px 2px 10px 4px rgb(200, 200, 200);
@@ -83,7 +84,7 @@
             border: 2px solid black;
         }
 
-        #text-title {
+        .text-title {
             display: flex;
             justify-content: left;
             align-items: center;
@@ -104,6 +105,7 @@
 
         .btn {
             margin-top: 18px;
+            margin-bottom: 20px;
             padding: 0px 0px 0px 10px;
         }
 
@@ -120,7 +122,10 @@
         #btn-cancel {
             width: 83px;
             background: rgb(110, 110, 110);
-            padding: 5px 10px 5px 10px;
+            padding: 5px 16px 5px 16px;
+            text-decoration: none;
+            color: white;
+            border-radius: 4px;
         }
 
         #btn-cancel:hover {
@@ -186,78 +191,85 @@
         <div class="title">
             <h4>New Cashier</h4>
         </div>
-        <div class="object">
-            <div class="left">
-                <table>
-                    <tr>
-                        <th>
-                            <div id="text-title">First name</div>
-                        </th>
-                        <th>
-                            <input type="text" placeholder="Enter first name" id="input">
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>
-                            <div id="text-title">Last name</div>
-                        </th>
-                        <th>
-                            <input type="text" placeholder="Enter last name" id="input">
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>
-                            <div id="text-title">Sex</div>
-                        </th>
-                        <th>
-                            <select name="gender" id="gender">
-                                <option value="Male">Male</option>
-                                <option value="Female">Female</option>
-                            </select>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>
-                            <div id="text-title">Date of Birth</div>
+        <form th:action="@{/admin/cashiers}" th:object="${user}" method="POST" enctype="multipart/form-data">
+            <div class="object">
+                <div class="left">
+                    <table>
+                        <tr>
+                            <th>
+                                <div class="text-title">First name</div>
+                            </th>
+                            <th>
+                                <input th:field="*{firstname}" name="firstname" type="text" placeholder="Enter first name"
+                                    id="input" required>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                <div class="text-title">Last name</div>
+                            </th>
+                            <th>
+                                <input th:field="*{lastname}" name="lastname" type="text" placeholder="Enter last name"
+                                    id="input" required>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                <div class="text-title">Sex</div>
+                            </th>
+                            <th>
+                                <select th:field="*{gender}" name="gender" id="gender">
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                <div class="text-title">Date of Birth</div>
 
-                        </th>
-                        <th>
-                            <input type="date" id="input">
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>
-                            <div id="text-title">Login</div>
-                        </th>
-                        <th>
-                            <input type="text" placeholder="Enter email " id="input">
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>
-                            <div id="text-title">Password</div>
-                        </th>
-                        <th>
-                            <input type="password" placeholder="Enter password" id="input">
-                        </th>
-                    </tr>
-                </table>
-                <div class="btn">
-                    <button id="btn-ok">Ok</button>
-                    <button id="btn-cancel">Cancel</button>
+                            </th>
+                            <th>
+                                <input th:field="*{date_of_birth}" name="date_of_birth" type="date" id="input" required>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                <div class="text-title">Login</div>
+                            </th>
+                            <th>
+                                <input th:field="*{username}" name="username" type="text" placeholder="Enter email "
+                                    id="input" required>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                <div class="text-title">Password</div>
+                            </th>
+                            <th>
+                                <input th:field="*{password}" name="password" type="password" placeholder="Enter password"
+                                    id="input" required>
+                            </th>
+                        </tr>
+                    </table>
                 </div>
-            </div>
-            <div class="right">
-                <div class="wrapper-picture">
-                    <div class="wrapper-canvas">
-                        <canvas id="canvas"></canvas><br>
-                        <div class="container">
-                            <input id="uploader" type="file">
+
+                <div class="right">
+                    <div class="wrapper-picture">
+                        <div class="wrapper-canvas">
+                            <canvas id="canvas"></canvas><br>
+                            <div class="container">
+                                <input type="file" name="file" id="uploader" required>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+            <div class="btn">
+                <button type="submit" id="btn-ok">Ok</button>
+                <a th:href="@{/admin/cashiers}" id="btn-cancel">Cancel</a>
+            </div>
+        </form>
     </div>
     <script>
         var canvas = document.getElementById("canvas");
@@ -274,4 +286,5 @@
         }) 
     </script>
 </body>
+
 </html>

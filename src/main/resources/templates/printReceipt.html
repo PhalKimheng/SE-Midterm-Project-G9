@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -96,7 +97,7 @@
         <div class="logo">BROWN</div>
         <div class="title">COFFEE AND BAKERY</div>
         <div class="line"></div>
-        <div id="text-line-1">Order Number:<span>179</span></div>
+        <div id="text-line-1">Order Number:<span th:th:text="${order.id}">179</span></div>
         <div class="line"></div>
         <div id="text-line-2">Brown 6(Sotheara):<span>097111111</span></div>
         <div id="text-line-2">browncoffee.com</div>
@@ -106,20 +107,20 @@
                 <tr>
                     <td>Cashier</td>
                     <th>
-                        <div id="text-output">: KOEM TOLA</div>
+                        <div id="text-output" th:text="${': '+order.getUser().getUsername()}">: KOEM TOLA</div>
                     </th>
                     <td>Table</td>
                     <th>
-                        <div id="text-output">: SEC-47</div>
+                        <div id="text-output">: SEC- <span th:text="${order.getTables().getId()}"></span></div>
                     </th>
                 <tr>
                     <td>T-in</td>
                     <th>
-                        <div id="text-output">: 02/05/2023</div>
+                        <div id="text-output"  th:text="${': '+order.getOrder_date().toString().split(' ')[0]}">: 02/05/2023</div>
                     </th>
                     <td>T-out</td>
                     <th>
-                        <div id="text-output">: 02/05/2023</div>
+                        <div id="text-output" th:text="${': '+today}">: 02/05/2023</div>
                     </th>
                 </tr>
                 <tr>
@@ -143,18 +144,21 @@
                     <th id="title">Unit Price</th>
                     <th id="title">Amount</th>
                 </tr>
-                <tr>
+                <tr th:each="odt : ${order.getOrderDetail()}">
+                    <td th:text="${odt.getDrink() == null ? odt.getFood.getName(): odt.getDrink().getName()}">Apple carrot</td>
+                    <td>
+                        <span th:text="${odt.getDrink() !=null? odt.getSize():''}"></span>&ensp;
+                        <span th:text="${odt.getQuantity()}"></span>
+                    </td>
+                    <td >2.3</td>
+                    <td th:text="${odt.getSubtotal()}">2.3</td>
+                </tr>
+                <!-- <tr>
                     <td>Apple carrot</td>
                     <td>Reguler 1</td>
                     <td>2.3</td>
                     <td>2.3</td>
-                </tr>
-                <tr>
-                    <td>Apple carrot</td>
-                    <td>Reguler 1</td>
-                    <td>2.3</td>
-                    <td>2.3</td>
-                </tr>
+                </tr> -->
             </table>
         </div>
         <div class="line"></div>
@@ -172,13 +176,16 @@
             </div>
             <div class="sub-total">
                 <div id="detail-out">
-                    <p>4.6</p>
+                    <p th:text="${': '+order.getTotal()}">4.6</p>
                 </div>
                 <div id="detail-out">
-                    <p>4.6</p>
+                    <p th:text="${': '+order.getTotal()}">4.6</p>
                 </div>
                 <div id="detail-out">
-                    <p>16000</p>
+                    <!-- just cut the decimal part ex: 4000.0 -> 4000 -->
+                    <p th:text="${': '+(order.getTotal()*4100).toString()
+                        .substring(0,
+                                  (order.getTotal()*4100).toString().length-2 )}">16000</p>                    
                 </div>
             </div>
         </div>
@@ -189,4 +196,5 @@
         </div>
     </div>
 </body>
+
 </html>

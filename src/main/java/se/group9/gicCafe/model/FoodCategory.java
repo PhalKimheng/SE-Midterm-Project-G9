@@ -13,8 +13,8 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "drink_categories")
-public class DrinkCategory {
+@Table(name = "food_categories")
+public class FoodCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -25,9 +25,9 @@ public class DrinkCategory {
     @Column(name = "code")
     private String code;
 
-    @OneToMany(mappedBy="drinkCategory", cascade = CascadeType.ALL)
-    private List<Drink> drink = new ArrayList<>();
-    
+    @OneToMany(mappedBy="foodCategory", cascade = CascadeType.ALL)
+    private List<Food> food = new ArrayList<>();
+
     public int getId() {
         return id;
     }
@@ -44,12 +44,12 @@ public class DrinkCategory {
         this.name = name;
     }
 
-    public List<Drink> getDrink() {
-        return drink;
+    public List<Food> getFood() {
+        return food;
     }
 
-    public void setDrink(List<Drink> drink) {
-        this.drink = drink;
+    public void setFood(List<Food> food) {
+        this.food = food;
     }
 
     public String getCode() {
@@ -60,5 +60,14 @@ public class DrinkCategory {
         this.code = code;
     }
 
+    public FoodCategory(int id, String name, String code, List<Food> food) {
+        this.id = id;
+        this.name = name;
+        this.code = code;
+        this.food = food;
+    }
+
+    public FoodCategory() {
+    }
     
 }
