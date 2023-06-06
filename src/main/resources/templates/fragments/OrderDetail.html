@@ -51,7 +51,7 @@
         <div th:text="${order.getSubtotal()}">price</div>
         <div>
             <div class="btn-ap">
-                <button>
+                <button onclick="editOrder(this)"  th:value="${order.id}" th:if="${order.getDrink() != null}">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" style="height: 1.23rem;">
                         <path stroke-linecap="round" stroke-linejoin="round"

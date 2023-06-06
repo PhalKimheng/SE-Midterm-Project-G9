@@ -36,17 +36,19 @@ public class WebSecurityConfig {
         .requestMatchers("/").permitAll()
         .requestMatchers("/admin/**").hasAnyAuthority(CONSTANT.Admin_Role)
         .requestMatchers("/tables/**").hasAuthority(CONSTANT.Cashier_Role)
-        .anyRequest().authenticated()
-        );
-      http.formLogin(login -> login
-              .loginPage("/login")
-              .usernameParameter("username")
-              .successHandler(successHandler)
-              .loginProcessingUrl("/login")
-              .permitAll())
-              .logout(logout -> logout.logoutUrl("/logout")
-                      .logoutSuccessUrl("/")
-                      .permitAll());
+        .anyRequest().authenticated());
+
+    http.csrf().disable();
+    
+    http.formLogin(login -> login
+        .loginPage("/login")
+        .usernameParameter("username")
+        .successHandler(successHandler)
+        .loginProcessingUrl("/login")
+        .permitAll())
+        .logout(logout -> logout.logoutUrl("/logout")
+            .logoutSuccessUrl("/")
+            .permitAll());
     return http.build();
   }
 

@@ -300,6 +300,12 @@
 </head>
 
 <body style="border: 1px solid black;">
+    <form action="#" th:action="@{/logout}" method="post">
+        <button style="color: white; position: absolute;right: .5rem;padding: .1rem .7rem .1rem .7rem; background-color: grey; border: 2px solid black; border-radius: 4px;">
+            Logout
+        </button>
+    </form>
+    
     <div id="vc-container">
         <div id="vc-activity-management">
             <a th:href="@{/admin/cashiers/new}"><button class="vc-activity-btn">New Cashier</button></a>

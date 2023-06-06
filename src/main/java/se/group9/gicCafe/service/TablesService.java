@@ -24,4 +24,5 @@ public interface TablesService {
      * @return :Order that has status "pending"
      */
     public Order getPendingOrderByTableID(int tid);
+
 }

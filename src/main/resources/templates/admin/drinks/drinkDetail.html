@@ -108,7 +108,7 @@
             <div class="vc-drink-information">
                 <div>
                     <div th:each="drink: ${drink}" style="border: 1px solid black; width: 500px; height: 500px;">
-                        <img id="drink-image" th:src="*{'data:image/jpeg;base64,'+{drink.image}}">
+                        <img id="drink-image" th:src="@{'data:image/jpeg;base64,'+${drink.image}}">
                     </div>
                     <!-- <div style="border: 1px solid black; width: 500px; height: 60px;">
                         some info

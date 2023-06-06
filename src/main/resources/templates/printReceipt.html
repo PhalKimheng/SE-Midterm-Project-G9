@@ -89,10 +89,20 @@
             text-align: center;
             padding: 10px;
         }
+
+        .back-to-table-selection{
+            text-decoration: none;
+            position: absolute;
+            right: 1rem;
+            top:1rem;
+            padding: .3rem;
+            border: 2px solid black;
+        }
     </style>
 </head>
 
 <body>
+    <a href="/tables" class="back-to-table-selection">Back to table selection</a>
     <div class="wrapper">
         <div class="logo">BROWN</div>
         <div class="title">COFFEE AND BAKERY</div>
@@ -153,12 +163,6 @@
                     <td >2.3</td>
                     <td th:text="${odt.getSubtotal()}">2.3</td>
                 </tr>
-                <!-- <tr>
-                    <td>Apple carrot</td>
-                    <td>Reguler 1</td>
-                    <td>2.3</td>
-                    <td>2.3</td>
-                </tr> -->
             </table>
         </div>
         <div class="line"></div>

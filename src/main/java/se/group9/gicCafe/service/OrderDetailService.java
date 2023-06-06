@@ -7,6 +7,8 @@ import se.group9.gicCafe.model.OrderDetail;
 public interface OrderDetailService {
     public OrderDetail saveAndFlushOrderDetail(OrderDetail orderDetail);
 
+    public OrderDetail saveOrderDetail(OrderDetail orderDetail);
+
     public List<OrderDetail> getAllOrderDetails();
 
     public OrderDetail getOrderDetailByID(int id);

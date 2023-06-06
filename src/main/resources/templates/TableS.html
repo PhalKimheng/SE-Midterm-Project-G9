@@ -17,6 +17,7 @@
     }
 
 
+
     ::-webkit-scrollbar {
         width: 1vh;
         height: 0.04vh;
@@ -34,11 +35,17 @@
         border: 0.01vh solid rgb(8, 1, 1);
         border-radius: 0.5rem;
 
-        background-image: linear-gradient(120deg, #ffb75e 10%, #ed8f03 100%);
+        background-image: linear-gradient(120deg, #000000 10%, #000000 100%);
     }
 
     ::-webkit-scrollbar-thumb:hover {
         background-image: linear-gradient(120deg, #eda143 10%, #cd7d05 100%);
+    }
+
+    body {
+        padding: 0;
+        margin: 0;
+        overflow: hidden;
     }
 
     .main {
@@ -132,13 +139,15 @@
     .box2 {
         width: 50%;
         height: 100%;
-        background-color: rgb(92, 165, 237);
+        background-color: hsl(0, 0%, 96%);
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
 
+        overflow: auto;
         position: relative;
+
     }
 
     .box2>strong {
@@ -180,7 +189,7 @@
     }
 
     #T_order {
-        color: #cd7d05;
+        color: rgb(24, 23, 23);
     }
 
     .V-orderData {
@@ -218,22 +227,27 @@
     }
 
     .V-edit:hover {
-        color: white;
+        color: hsl(42, 99%, 47%);
         cursor: pointer;
     }
 
-    .edit-View {
+    .V-edit-table {
         position: absolute;
-        height: 30rem;
-        width: 30rem;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        border: 2px solid black;
-        border-radius: 5px;
-
-        background-color: #fff;
+        height: 100vh;
+        width: 100vw;
+        background-color: rgba(0, 0, 0, .6);
+        top: 0;
         display: none;
+    }
+
+    .V-edit-wrapper {
+        margin: auto;
+        height: 40rem;
+        width: 55rem;
+        border: 2px solid black;
+        border-radius: 4px;
+        background-color: rgb(255, 255, 255);
+        overflow: hidden;
 
     }
 </style>
@@ -254,6 +268,7 @@
 
         <section class="box2" id="box2">
             <!-- <div th:replace="~{fragments/TableInfo :: table-order-info}"></div> -->
+            <p>Select any table</p>
         </section>
     </div>
     <form action="#" th:action="@{/logout}" method="post">
@@ -261,7 +276,33 @@
             Logout
         </button>
     </form>
+    </div>
+    <div class="V-edit-table" id="edit-screen">
+        <div class="V-edit-wrapper">
+            <div
+                style="height: 3rem; display: flex; justify-content: center; align-items: center; border-bottom: 2px solid black;">
+                <Strong>Select table to change</Strong>
+            </div>
+            <div
+                style="max-width: 100%;max-height: calc(100% - 3rem);display: flex; flex-wrap: wrap; justify-content: center;overflow: auto;">
+                <div class="V-table" th:each="table: ${tableList}">
+                    <button onclick="reqChangingTable(this)" th:if="${table.status.equals('available')}"
+                        th:value="${table.id}"
+                        th:style="${table.id < tableCount/2 ? 'background-color: green' : 'background-color: red'}"
+                        th:class="${!table.status.equals('available')} ? V-bgc-table-busy" th:text="${table.id}">
+                        id
+                    </button>
 
+                    <div th:if="${!table.status.equals('available')}"
+                        style="position: relative;height: 100%;width: 100%;color: white;background-color: black; display: flex;justify-content: center;align-items: center;">
+                        <span
+                            style="transform: rotate(-45deg);position: absolute;width: 10%;height: 95%;background-color: #fff;"></span>
+                        <span
+                            style="transform: rotate(45deg);position: absolute;width: 10%;height: 95%;background-color: #fff;"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 <script>
@@ -282,27 +323,32 @@
         }
     }
 
-    // function changeTable(node) {
-    //     const viewEdit = document.getElementById("pop-edit-view");
-    //         console.log(viewEdit);
-    //         // viewEdit.style.display = 'block';
-    //         editView_hasPop = true;
+    function toOrderSelectionScreen(node) {
+        location.href = "/tables/table" + node.value + "/drink-food-selection-order-info";
+    }
+    const editScreen = document.getElementById("edit-screen");
 
-    // }
-
-    // const main = document.getElementById("main");
-    // let editView_hasPop = false;
-
-    // main.addEventListener('click', () => {
-    //     console.log(1212);
-    //     if (editView_hasPop) {
-    //         viewEdit.style.display = 'none';
-    //         editView_hasPop = false
-    //     }
-    // })
-
-
-
+    editScreen.addEventListener("click", (event) => {
+        if (event.target === editScreen) {
+            editScreen.style.display = "none";
+        }
+    });
+    let tableTochnage_id = 0;
+    function changeTable(node) {
+        editScreen.style.display = 'block'
+        tableTochnage_id = node.value;
+    }
+    function reqChangingTable(node) {
+        fetch("/tables/change-table?id=" + tableTochnage_id + "&toid=" + node.value, {
+            method: 'POST'
+        }).then(async (res) => {
+            const data = await res.text();
+            //do noting with res
+            location.href = "/tables";
+        }).catch(e => {
+            console.log("change went wrong " + e);
+        })
+    }
 
 </script>
 

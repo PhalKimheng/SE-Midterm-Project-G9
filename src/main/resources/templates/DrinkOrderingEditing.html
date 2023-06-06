@@ -155,18 +155,21 @@
 <body>
     <!-- <button id="open-modal">Click Me</button> -->
 
-    <form action="#" th:action="@{'/tables/table'+${tid}+'/drink-food-selection-order-info/add-drink?id='+${drinkOrFoodid}}"
+    <form action="#" th:action="@{'/tables/table'+${tid}+'/drink-food-selection-order-info/edit-drink?id='+${odt_id}}"
         method="post" style="height: 100vh; width: 100%;">
         <div id="modal-overlay">
             <div id="modal">
                 <div class="modal-header">
                     <h2>Size</h2>
                     <div class="checkbox">
-                        <input type="checkbox" id="size" name="size" value="R" th:checked="${true}"
+                        <input type="checkbox" id="size" name="size" value="R"
+                            th:checked="${orderDetail.size.equals('R')?true:false}"
                             onchange="limitCheckboxSelection(this)"><label for="regular">R</label>
                         <input type="checkbox" id="size" name="size" value="L"
+                            th:checked="${orderDetail.size.equals('L')?true:false}"
                             onchange="limitCheckboxSelection(this)"><label for="large">L</label>
                         <input type="checkbox" id="size" name="size" value="G"
+                            th:checked="${orderDetail.size.equals('G')?true:false}"
                             onchange="limitCheckboxSelection(this)"><label for="grand">G</label>
                     </div>
 
@@ -176,24 +179,24 @@
                     <h2>Option</h2>
                     <div class="cream">
                         <label for="cream">Cream</label>
-                        <input type="checkbox" id="cream" name="cream">
+                        <input type="checkbox" id="cream" name="cream" th:checked="${orderDetail.cream?true:false}">
                     </div>
 
                     <div class="box">
                         <label>Sugar</label>
                         <select id="sugar-select" name="sugar">
                             <!-- <option value="hide">Level</option> -->
-                            <option value="0" selected>0%</option>
-                            <option value="25">25%</option>
-                            <option value="50">50%</option>
-                            <option value="75">75%</option>
-                            <option value="100">100%</option>
+                            <option value="0"   th:selected="${orderDetail.sugar==0}">0%</option>
+                            <option value="25"  th:selected="${orderDetail.sugar==25}">25%</option>
+                            <option value="50"  th:selected="${orderDetail.sugar==50}">50%</option>
+                            <option value="75"  th:selected="${orderDetail.sugar==75}">75%</option>
+                            <option value="100" th:selected="${orderDetail.sugar==100}">100%</option>
                         </select>
                     </div>
 
                     <div class="box">
                         <label>Quantity </label>
-                        <input type="number" name="quantity" id="quantity" min="1" value="1"
+                        <input type="number" name="quantity" id="quantity" min="1" th:value="${orderDetail.quantity}"
                             style="height: 2.5rem; width: 5rem;padding-left: .5rem; border-radius: 4px; border: 2px solid transparent;">
                     </div>
                 </div>
@@ -209,36 +212,6 @@
     </form>
 </body>
 <script>
-    // Show Modal
-    // const openModalButton = document.getElementById("open-modal");
-    // const modalWindowOverlay = document.getElementById("modal-overlay");
-
-    // const showModalWindow = () => {
-    //     modalWindowOverlay.style.display = 'flex';
-    // }
-    // openModalButton.addEventListener("click", showModalWindow);
-
-    // Hide Modal
-    // const closeModalButton = document.getElementById("close-modal");
-
-    // const hideModalWindow = () => {
-    //     modalWindowOverlay.style.display = 'none';
-    // }
-
-    // closeModalButton.addEventListener("click", hideModalWindow);
-
-
-    // Hide On Blur
-    // const hideModalWindowOnBlur = (e) => {
-
-    //     if (e.target === e.currentTarget) {
-    //         console.log(e.target === e.currentTarget)
-    //         hideModalWindow();
-    //     }
-    // }
-
-    // modalWindowOverlay.addEventListener("click", hideModalWindowOnBlur)
-
 
 
     // Checkbox with single choice

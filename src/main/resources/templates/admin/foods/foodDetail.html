@@ -109,7 +109,7 @@
             <div class="vc-food-information">
                 <div>
                     <div th:each = "food: ${food}" style="border: 1px solid black; width: 500px; height: 500px;">
-                        <img id="food-image" th:src="*{'data:image/jpeg;base64,'+{food.image}}">
+                        <img id="food-image" th:src="@{'data:image/jpeg;base64,'+*{food.image}}">
                     </div>
                     <!-- <div style="border: 1px solid black; width: 500px; height: 60px;">
                         some info

@@ -9,4 +9,8 @@ public interface OrderService {
     Order getOrderByID(int id);
 
     Order saveOrder(Order order);
+
+    Order saveAndFlushOrder(Order order);
+
+    double getTotalPrice(Order order);
 }

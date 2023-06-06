@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import se.group9.gicCafe.model.Order;
+import se.group9.gicCafe.model.OrderDetail;
 import se.group9.gicCafe.repository.OrderRepo;
 import se.group9.gicCafe.service.OrderService;
 
@@ -32,5 +33,20 @@ public class OrderServiceImp implements OrderService {
     @Override
     public Order saveOrder(Order order) {
        return orderRepo.save(order);
+    }
+
+    @Override
+    public double getTotalPrice(Order order) {
+        List<OrderDetail> orderDetails=order.getOrderDetail();
+        double sum=0;
+        for(OrderDetail orderD : orderDetails){
+            sum+=orderD.getSubtotal();
+        }
+        return sum;
+    }
+
+    @Override
+    public Order saveAndFlushOrder(Order order) {
+       return orderRepo.saveAndFlush(order);
     }
 }

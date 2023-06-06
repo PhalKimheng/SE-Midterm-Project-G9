@@ -443,7 +443,6 @@ border-color: blue;
     }
 
 
-
     .M-orderInfo>*>:last-child :hover {
         color: blue;
     }
@@ -540,6 +539,80 @@ border-color: blue;
         transform: translate(-50%, -50%);
         border-radius: 4px;
     }
+
+    #checkout-screen {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        background-color: rgb(128, 128, 128, 0.6);
+        z-index: 12;
+        font-weight: 600;
+        font-size: larger;
+        display: none;
+
+    }
+
+    #checkout-screen form {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 20;
+
+        height: 20rem;
+        width: 50rem;
+        background-color: #fff;
+        border-radius: 4px;
+        border: 2px solid black;
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        justify-content: center;
+    }
+
+    .c12 {
+        height: 3rem;
+        width: 100%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        column-gap: 7rem;
+    }
+
+    .submit-checkout {
+        height: 4rem;
+        width: 100%;
+        display: flex;
+        column-gap: 8rem;
+        align-items: center;
+
+        justify-content: center;
+
+    }
+
+    .submit-checkout button {
+        margin-top: 2rem;
+        padding: .3rem 0 .3rem 0;
+        width: 10%;
+        background-color: black;
+        color: #e3e3e3;
+        border-radius: 4px;
+
+        border: 1px solid black;
+        font-weight: inherit;
+        font-size: inherit;
+    }
+
+    .submit-checkout button:hover {
+        background-color: rgb(255, 255, 255);
+        color: black;
+    }
+
+    .submit-checkout button:active {
+        background-color: rgb(0, 0, 0);
+        color: rgb(255, 255, 255);
+    }
 </style>
 
 <body>
@@ -624,104 +697,189 @@ border-color: blue;
                 <div th:replace="~{fragments/OrderDetail :: orderDetail_of_table}"></div>
             </div>
         </section>
+
+        <div style="position: absolute; top: .7rem; right: 1rem;">
+            <button id="checkout"
+                style=" color: #ffffff; background-color: black; border: 2px solid black;border-radius: 4px; padding: .1rem .7rem .1rem .7rem;">
+                <Strong>checkout</Strong>
+            </button>
+        </div>
+
+        <div id="checkout-screen">
+            <form action="#" th:action="@{'/tables/table'+${tid}+'/checkout-order?id='+${order_id}}" method="post">
+                <div class="c12">
+                    <span>Cash receive</span>
+                    <span>Total cost</span>
+                    <span>Change</span>
+                </div>
+                <div class="c12" style="column-gap: 9.5rem;">
+                    <span>
+                        <input id="cash_receive" name="cash_receive" type="number" min="0" step="0.1" value="0" style="padding-left: .5rem; width: 5rem; border: 2px solid orange; ;
+                        font-size: inherit; font-weight: inherit;"></span>
+                    <span id="total_">11.1</span>
+                    <span id="change_">0</span>
+
+                </div>
+                <div class="submit-checkout">
+                    <button>OK</button>
+                    <button type="button" onclick="cancelCheckOut()">cancel</button>
+                </div>
+            </form>
+        </div>
+
+        <div style="position: absolute; right: 1rem; bottom: 1rem;">
+            <a href="/tables"
+                style="text-decoration: none;color: #ffffff; 
+                        background-color: black; border: 2px solid black;border-radius: 4px; 
+                        padding: .1rem .7rem .1rem .7rem;">
+                <Strong>Back</Strong></a>
+        </div>
     </div>
+</body>
 
-    <script>
-        const CategoryList = document.getElementById("categoryList");
-        let isToggle = false;
-        function viewAllCategory(node) {
-            if (isToggle) {
-                CategoryList.classList.remove("M-classList-toggle");
-                node.classList.remove("M-rotate-ctg-up");
-                node.classList.add("M-rotate-ctg-down");
-            } else {
-                CategoryList.classList.add("M-classList-toggle");
-                node.classList.add("M-rotate-ctg-up");
+<script>
+    const CategoryList = document.getElementById("categoryList");
+    let isToggle = false;
+    function viewAllCategory(node) {
+        if (isToggle) {
+            CategoryList.classList.remove("M-classList-toggle");
+            node.classList.remove("M-rotate-ctg-up");
+            node.classList.add("M-rotate-ctg-down");
+        } else {
+            CategoryList.classList.add("M-classList-toggle");
+            node.classList.add("M-rotate-ctg-up");
 
-                if (node.classList.contains("M-rotate-ctg-down")) {
-                    node.classList.remove("M-rotate-ctg-down");
-                }
+            if (node.classList.contains("M-rotate-ctg-down")) {
+                node.classList.remove("M-rotate-ctg-down");
             }
-            isToggle = !isToggle;
         }
+        isToggle = !isToggle;
+    }
 
 
-        const thisPageURL = window.location.href;
+    const thisPageURL = window.location.href;
 
 
-        let previosSelectedCategory = document.getElementById("drink-category-button");
-        previosSelectedCategory.classList.add("CTG-on-hover")
-        function fetchCategoryData(node) {
-            if (previosSelectedCategory == node) return;
+    let previosSelectedCategory = document.getElementById("drink-category-button");
+    previosSelectedCategory.classList.add("CTG-on-hover")
+    function fetchCategoryData(node) {
+        if (previosSelectedCategory == node) return;
 
-            fetch(thisPageURL + "/get-category?ctg_name=" + node.value).then(async (res) => {
+        fetch(thisPageURL + "/get-category?ctg_name=" + node.value).then(async (res) => {
+            const data = await res.text();
+            // console.log(data);
+            CategoryList.innerHTML = data;
+            fetchFoods_DrinkByCategory(allDrinks);
+        })
+        node.classList.add("CTG-on-hover");
+        previosSelectedCategory.classList.remove("CTG-on-hover");
+        previosSelectedCategory = node;
+    }
+
+
+    const allDrinks = document.getElementById("allDrinks")
+
+    let previousNode = allDrinks;
+    previousNode.classList.add("CTG-on-hover");
+    const drinks_ofCTG = document.getElementById("category-data");
+    function fetchFoods_DrinkByCategory(node) {
+
+        if (previosSelectedCategory.value == "drink") {
+            fetch(thisPageURL + "/get-drinks?id=" + node.value).then(async (res) => {
                 const data = await res.text();
                 // console.log(data);
-                CategoryList.innerHTML = data;
-                fetchFoods_DrinkByCategory(allDrinks);
+                drinks_ofCTG.innerHTML = data;
+            }).catch((err) => {
+                console.log("oops!!!! someting went wrong!!!!!" + err);
             })
-            node.classList.add("CTG-on-hover");
-            previosSelectedCategory.classList.remove("CTG-on-hover");
-            previosSelectedCategory = node;
-        }
 
-
-        const allDrinks = document.getElementById("allDrinks")
-
-        let previousNode = allDrinks;
-        previousNode.classList.add("CTG-on-hover");
-        const drinks_ofCTG = document.getElementById("category-data");
-        function fetchFoods_DrinkByCategory(node) {
-
-            if (previosSelectedCategory.value == "drink") {
-                fetch(thisPageURL + "/get-drinks?id=" + node.value).then(async (res) => {
-                    const data = await res.text();
-                    // console.log(data);
-                    drinks_ofCTG.innerHTML = data;
-                }).catch((err) => {
-                    console.log("oops!!!! someting went wrong!!!!!" + err);
-                })
-
-            } else {
-                fetch(thisPageURL + "/get-foods?id=" + node.value).then(async (res) => {
-                    const data = await res.text();
-                    // console.log(data);
-                    drinks_ofCTG.innerHTML = data;
-                }).catch((err) => {
-                    console.log("oops!!!! someting went wrong!!!!!" + err);
-                })
-            }
-            if (previousNode == node) return;
-
-            node.classList.add("CTG-on-hover")
-            previousNode.classList.remove("CTG-on-hover")
-            previousNode = node
-        }
-
-
-
-        const orderInfo = document.getElementById("orderInfomation");
-        function deleteOrder(node) {
-            console.log(node.value);
-            fetch(thisPageURL + "/delete-order?id=" + node.value).then(async (res) => {
+        } else {
+            fetch(thisPageURL + "/get-foods?id=" + node.value).then(async (res) => {
                 const data = await res.text();
-                console.log(data);
-                orderInfo.innerHTML = data;
-
+                // console.log(data);
+                drinks_ofCTG.innerHTML = data;
+            }).catch((err) => {
+                console.log("oops!!!! someting went wrong!!!!!" + err);
             })
         }
+        if (previousNode == node) return;
+
+        node.classList.add("CTG-on-hover")
+        previousNode.classList.remove("CTG-on-hover")
+        previousNode = node
+    }
 
 
 
-        function chooseOrder(node){
-            if(previosSelectedCategory.value == "drink"){
-                location.href=thisPageURL+"/add-drink?id="+node.dataset.drinkfoodid
-            }else{
-                // fetch(thisPageURL)
-                location.href=thisPageURL+"/add-food?id="+node.dataset.drinkfoodid                
-            }
+    const orderInfo = document.getElementById("orderInfomation");
+    function deleteOrder(node) {
+        console.log(node.value);
+        fetch(thisPageURL + "/delete-order?id=" + node.value).then(async (res) => {
+            const data = await res.text();
+            // console.log(data);
+            orderInfo.innerHTML = data;
+
+        })
+    }
+
+    function editOrder(node) {
+        location.href = thisPageURL + "/edit-drink?id=" + node.value
+    }
+
+
+    function chooseOrder(node) {
+        if (previosSelectedCategory.value == "drink") {
+            location.href = thisPageURL + "/add-drink?id=" + node.dataset.drinkfoodid
+        } else {
+            fetch(thisPageURL + "/add-food?id=" + node.dataset.drinkfoodid, {
+                method: 'POST'
+            }).then(async (res) => {
+                const data = await res.text();
+                orderInfo.innerHTML = data;
+            }).catch(err => {
+                //do nothing
+            })
         }
-    </script>
-</body>
+    }
+
+    const cashReceiveInput = document.getElementById('cash_receive');
+    const totalCost = document.getElementById('total_');
+    const change = document.getElementById('change_');
+
+    const checkout = document.getElementById("checkout");
+    const checkout_screen = document.getElementById("checkout-screen");
+    checkout.addEventListener("click", () => {
+        fetch(thisPageURL + "/order-price").then(async (res) => {
+            const data = await res.text();
+            console.log(parseFloat(data));
+            totalCost.innerText = data;
+        })
+        checkout_screen.style.display = 'block';
+    })
+
+    function cancelCheckOut() {
+        checkout_screen.style.display = 'none';
+    }
+
+
+
+
+
+    cashReceiveInput.addEventListener('input', updateChange);
+
+    function updateChange() {
+        const cashReceived = parseFloat(cashReceiveInput.value);
+        const total = parseFloat(totalCost.textContent);
+        const changeAmount = cashReceived - total;
+        if (changeAmount < 0) {
+            change.style.color = 'red';
+        }
+        else {
+            change.style.color = 'inherit';
+        }
+        change.textContent = changeAmount.toFixed(2);
+    }
+
+</script>
 
 </html>

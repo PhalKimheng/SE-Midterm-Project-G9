@@ -176,7 +176,7 @@
     .form-right>:first-child {
         height: 85%;
         width: 100%;
-        border: 1px solid grey;
+        /* border: 1px solid grey; */
     }
 
     .wrapperImg {
@@ -259,8 +259,8 @@
             <Strong>New Food</Strong>
         </section>
         <section>
-            <form th:action="@{/admin/foods}" th:object="${food}" method="POST"
-                enctype="multipart/form-data" onsubmit="false">
+            <form th:action="@{/admin/foods}" th:object="${food}" method="POST" enctype="multipart/form-data"
+                onsubmit="false">
                 <div class="information">
                     <div class="form-left">
                         <div class="input-box">
@@ -275,19 +275,33 @@
 
                         <div class="input-box">
                             <label>Category</label>
-                            <input th:field="*{foodCategory.id}" type="number" name="fcid" required placeholder="Enter a number"
-                                style="margin-left: auto;">
-                            <!-- HTML !-->
-                            <!-- <a th:href="@{/admin/foodCategory/new}"><button class="button-31" role="button">New</button></a> -->
+                            <select th:field="*{foodCategory.id}" type="number" required name="dcid">
+                                <div th:each="foodCategory: ${foodCategories}">
+                                    <option th:value="${foodCategory.id}" th:text="${foodCategory.name}"></option>
+                                </div>
+
+                            </select>
 
                         </div>
+                        <!-- HTML !-->
+                        <!-- <a th:href="@{/admin/drinkCategory/new}"><button class="button-31" id="new-btn" role="button">New</button></a> -->
+                        <!-- <input th:field="*{drinkCategory.id}" type="number" required name="dcid" placeholder="Enter a number"
+                            style="margin-left: auto;"> -->
+                        <!-- <div class="input-box">
+                            <label>Category</label>
+                            <input th:field="*{foodCategory.id}" type="number" name="fcid" required placeholder="Enter a number"
+                                style="margin-left: auto;"> -->
+                        <!-- HTML !-->
+                        <!-- <a th:href="@{/admin/foodCategory/new}"><button class="button-31" role="button">New</button></a> -->
+
+                        <!-- </div>
                         <div style="display: inline-block;">
                             <div th:each="foodCategory: ${foodCategories}" style="display: inline-block;">
                                 <div th:text="${foodCategory.id} + ' ' + ${foodCategory.name}"
                                     style="margin-right: 10px;">
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="input-box" style="height: 3rem;">
                             <label>Price</label>
@@ -303,7 +317,7 @@
                     <div class="form-right">
                         <div>
                             <div class="wrapperImg">
-                                <img id="preview" src="" alt="">
+                                <img id="preview" src="#" alt="">
                             </div>
                         </div>
                         <div>

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import se.group9.gicCafe.model.OrderDetail;
 import se.group9.gicCafe.repository.OrderDetailRepo;
+import se.group9.gicCafe.repository.OrderRepo;
 import se.group9.gicCafe.service.OrderDetailService;
 
 @Service
@@ -15,7 +16,7 @@ public class OrderDetailServiceImp implements OrderDetailService{
         super();
         this.orderDetailRepo=orderDetailRepo;
     }
-
+    
     @Override
     public OrderDetail saveAndFlushOrderDetail(OrderDetail orderDetail) {
        return orderDetailRepo.saveAndFlush(orderDetail);
@@ -39,6 +40,11 @@ public class OrderDetailServiceImp implements OrderDetailService{
     @Override
     public void deleteOrderDetailByID(int id) {
         orderDetailRepo.deleteById(id);
+    }
+
+    @Override
+    public OrderDetail saveOrderDetail(OrderDetail orderDetail) {
+       return orderDetailRepo.save(orderDetail);
     }
     
 }
