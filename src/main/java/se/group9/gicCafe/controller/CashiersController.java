@@ -62,18 +62,35 @@ public class CashiersController {
     }
 
     @PostMapping("/change-table")
-    public String changeTable(@RequestParam int id, @RequestParam int toid){
-       Order order =tableService.getPendingOrderByTableID(id);
-       order.setTables(new Tables(toid, null, null));
-       orderService.saveOrder(order);
+    public String changeTable(@RequestParam int id, @RequestParam int toid) {
+        Order order = tableService.getPendingOrderByTableID(id);
 
-       Tables fromTable=tableService.getTableByID(id);
-       fromTable.setStatus(CONSTANT.Table_Status_Free);
-       tableService.saveTables(fromTable);
+        Tables fromTable = tableService.getTableByID(id);
+        fromTable.setStatus(CONSTANT.Table_Status_Free);
+        tableService.saveTables(fromTable);
 
-       Tables toTable=tableService.getTableByID(toid);
-       toTable.setStatus(CONSTANT.Table_Status_Busy);
-       tableService.saveTables(fromTable);
+        
+        Tables toTable = tableService.getTableByID(toid);
+        toTable.setStatus(CONSTANT.Table_Status_Busy);
+        tableService.saveTables(toTable);
+
+        order.setTables(toTable);
+        orderService.saveOrder(order);
+
+        return "redirect:/tables";
+    }
+
+    @PostMapping("/clear-table")
+    public String clearTableOrder(@RequestParam int id) {
+
+        Order order = tableService.getPendingOrderByTableID(id);
+        order.setStatus(CONSTANT.Order_Status_Finish);
+        orderService.saveOrder(order);
+
+        Tables table = tableService.getTableByID(id);
+        table.setStatus(CONSTANT.Table_Status_Free);
+        tableService.saveTables(table);
+
 
         return "redirect:/tables";
     }
@@ -99,7 +116,7 @@ public class CashiersController {
 
         int tid = Integer.valueOf(table.replaceAll("table", ""));
         model.addAttribute("tid", tid);
-        
+
         Order order = tableService.getPendingOrderByTableID(tid);
 
         // get cashier who logging in
@@ -112,17 +129,18 @@ public class CashiersController {
             Order od = new Order(0, new java.util.Date(), null, 0, 0, 0, CONSTANT.Order_Status_Pending,
                     user, tableService.getTableByID(tid), null);
             orderService.saveAndFlushOrder(od);
-            
+
             Tables Tablee = tableService.getTableByID(tid);
             Tablee.setStatus(CONSTANT.Table_Status_Busy);
             tableService.saveTables(Tablee);
 
-            //like a magic, the id is what was insert to database
+            // like a magic, the id is what was insert to database
             model.addAttribute("order_id", od.getId());
 
             return "drinkSelection_orderInfo";
         }
 
+        
         model.addAttribute("order_id", order.getId());
         List<OrderDetail> orderDetails = order.getOrderDetail();
         if (orderDetails.size() == 0) {
@@ -218,7 +236,6 @@ public class CashiersController {
         return "FoodOrdering";
     }
 
-
     // submit selected drink or food
     // use for both food and drink, inerting to order detail Table
     @PostMapping("/{table}/drink-food-selection-order-info/add-{type}")
@@ -250,7 +267,6 @@ public class CashiersController {
         // System.out.println(tid);
         return "redirect:/tables/table" + tid + "/drink-food-selection-order-info";
     }
-
 
     // edit selelected drink
     // edit selelected drink
@@ -285,13 +301,16 @@ public class CashiersController {
         return "redirect:/tables/table" + tid + "/drink-food-selection-order-info";
     }
 
-
     // checkout~~~~
     // checkout~~~~
     @GetMapping("/table{id}/drink-food-selection-order-info/order-price")
     @ResponseBody
     public Double getTotalCost(@PathVariable int id) {
-        Order order=tableService.getPendingOrderByTableID(id);
+        Order order = tableService.getPendingOrderByTableID(id);
+        if(order.getOrderDetail().size()==0){
+            //no order for drink or food
+            return -1.0;
+        }
 
         order.setTotal(orderService.getTotalPrice(order));
         orderService.saveOrder(order);
@@ -301,19 +320,18 @@ public class CashiersController {
     @PostMapping("/table{tid}/checkout-order")
     public String checkoutOrder(@PathVariable int tid, @RequestParam int id, @RequestParam double cash_receive) {
 
-        Order order=orderService.getOrderByID(id);
+        Order order = orderService.getOrderByID(id);
         order.setStatus(CONSTANT.Order_Status_Finish);
         order.setCash_received(cash_receive);
-        order.setChanged(cash_receive-order.getTotal());
+        order.setChanged(cash_receive - order.getTotal());
         orderService.saveOrder(order);
 
-        Tables tables=tableService.getTableByID(tid);
+        Tables tables = tableService.getTableByID(tid);
         tables.setStatus(CONSTANT.Table_Status_Free);
         tableService.saveTables(tables);
 
         return "redirect:/tables/table" + tid + "/drink-food-selection-order-info/order-receipt?id=" + id;
     }
-
 
     // ------print receipt ------------
     // ------print receipt ------------

@@ -690,8 +690,6 @@ border-color: blue;
 
         <section class="M-sec-right">
             <Strong>Order Information</Strong>
-
-
             <!------ order information------->
             <div style="width: 100%; height: 100%;" id="orderInfomation">
                 <div th:replace="~{fragments/OrderDetail :: orderDetail_of_table}"></div>
@@ -701,6 +699,7 @@ border-color: blue;
         <div style="position: absolute; top: .7rem; right: 1rem;">
             <button id="checkout"
                 style=" color: #ffffff; background-color: black; border: 2px solid black;border-radius: 4px; padding: .1rem .7rem .1rem .7rem;">
+
                 <Strong>checkout</Strong>
             </button>
         </div>
@@ -728,8 +727,7 @@ border-color: blue;
         </div>
 
         <div style="position: absolute; right: 1rem; bottom: 1rem;">
-            <a href="/tables"
-                style="text-decoration: none;color: #ffffff; 
+            <a href="/tables" style="text-decoration: none;color: #ffffff; 
                         background-color: black; border: 2px solid black;border-radius: 4px; 
                         padding: .1rem .7rem .1rem .7rem;">
                 <Strong>Back</Strong></a>
@@ -758,8 +756,7 @@ border-color: blue;
 
 
     const thisPageURL = window.location.href;
-
-
+    // get category wether drink or food
     let previosSelectedCategory = document.getElementById("drink-category-button");
     previosSelectedCategory.classList.add("CTG-on-hover")
     function fetchCategoryData(node) {
@@ -777,13 +774,12 @@ border-color: blue;
     }
 
 
+    // get data of drinks or food 
     const allDrinks = document.getElementById("allDrinks")
-
     let previousNode = allDrinks;
     previousNode.classList.add("CTG-on-hover");
     const drinks_ofCTG = document.getElementById("category-data");
     function fetchFoods_DrinkByCategory(node) {
-
         if (previosSelectedCategory.value == "drink") {
             fetch(thisPageURL + "/get-drinks?id=" + node.value).then(async (res) => {
                 const data = await res.text();
@@ -810,7 +806,7 @@ border-color: blue;
     }
 
 
-
+    //delete order drink or food
     const orderInfo = document.getElementById("orderInfomation");
     function deleteOrder(node) {
         console.log(node.value);
@@ -822,11 +818,12 @@ border-color: blue;
         })
     }
 
+    // edit drink order
     function editOrder(node) {
         location.href = thisPageURL + "/edit-drink?id=" + node.value
     }
 
-
+    //order wether food or drink...drink to new page and food same old page, pop one up (only 1 at a time...no quantity..)
     function chooseOrder(node) {
         if (previosSelectedCategory.value == "drink") {
             location.href = thisPageURL + "/add-drink?id=" + node.dataset.drinkfoodid
@@ -842,6 +839,8 @@ border-color: blue;
         }
     }
 
+
+    // checkout part
     const cashReceiveInput = document.getElementById('cash_receive');
     const totalCost = document.getElementById('total_');
     const change = document.getElementById('change_');
@@ -851,22 +850,22 @@ border-color: blue;
     checkout.addEventListener("click", () => {
         fetch(thisPageURL + "/order-price").then(async (res) => {
             const data = await res.text();
-            console.log(parseFloat(data));
-            totalCost.innerText = data;
+            // console.log(parseFloat(data));
+            if (parseFloat(data) < 0) {
+                alert("No order to checkout!!!")
+            } else {
+                totalCost.innerText = data;
+                checkout_screen.style.display = 'block';
+            }
         })
-        checkout_screen.style.display = 'block';
     })
 
     function cancelCheckOut() {
         checkout_screen.style.display = 'none';
     }
 
-
-
-
-
+    // calculate cash receive - total cost
     cashReceiveInput.addEventListener('input', updateChange);
-
     function updateChange() {
         const cashReceived = parseFloat(cashReceiveInput.value);
         const total = parseFloat(totalCost.textContent);

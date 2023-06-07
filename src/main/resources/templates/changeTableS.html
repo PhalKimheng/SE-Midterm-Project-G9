@@ -118,8 +118,8 @@
         background-color: purple !important;
     }
 
-    .V-bgc-table-not-to-select {
-        background-color: grey !important;
+    .V-bgc-table-unpaid {
+        background-color: rgb(0, 110, 255) !important;
     }
 
     /* --------------------- */
@@ -224,7 +224,6 @@
         width: 1.7rem;
         border: none;
         background-color: inherit;
-        position: relative;
     }
 
     .V-edit:hover {
@@ -238,18 +237,16 @@
         width: 100vw;
         background-color: rgba(0, 0, 0, .6);
         top: 0;
-        display: none;
     }
 
     .V-edit-wrapper {
         margin: auto;
         height: 40rem;
-        width: 50rem;
+        width: 55rem;
         border: 2px solid black;
         border-radius: 4px;
         background-color: rgb(255, 255, 255);
         overflow: hidden;
-
     }
 </style>
 
@@ -268,7 +265,7 @@
         </section>
 
         <section class="box2" id="box2">
-            <!-- <div th:replace="~{fragments/TableInfo :: table-order-info}"></div> -->
+            <div th:replace="~{fragments/TableInfo :: table-order-info}"></div>
             <p>Select any table</p>
         </section>
     </div>
@@ -278,7 +275,7 @@
         </button>
     </form>
     </div>
-    <div class="V-edit-table" id="edit-screen">
+    <div class="V-edit-table">
         <div class="V-edit-wrapper">
             <div
                 style="height: 3rem; display: flex; justify-content: center; align-items: center; border-bottom: 2px solid black;">
@@ -287,13 +284,13 @@
             <div
                 style="max-width: 100%;max-height: calc(100% - 3rem);display: flex; flex-wrap: wrap; justify-content: center;overflow: auto;">
                 <div class="V-table" th:each="table: ${tableList}">
-                    <button th:onclick="${table.status.equals('available')} ? 'reqChangingTable(this)' : 'doNthing()'"
-                        th:value="${table.id}" th:id="${table.id}"
-                        th:style="${table.id < tableCount/2 ? 'background-color: green' : 'background-color: red'}"
-                        th:class="${!table.status.equals('available')} ? V-bgc-table-not-to-select"
-                        th:text="${table.id}">
-                        id
-                    </button>
+                    <form action="#" th:action="@{'/tables/change-table?id='+${table.id}}" method="post" style="width: 100%;height: 100%;">
+                        <button th:if="${table.status.equals('available')}"
+                            th:style="${table.id < tableCount/2 ? 'background-color: green' : 'background-color: red'}"
+                            th:class="${!table.status.equals('available')} ? V-bgc-table-busy" th:text="${table.id}">
+                            id
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -320,51 +317,10 @@
     function toOrderSelectionScreen(node) {
         location.href = "/tables/table" + node.value + "/drink-food-selection-order-info";
     }
-    const editScreen = document.getElementById("edit-screen");
-
-    editScreen.addEventListener("click", (event) => {
-        if (event.target === editScreen) {
-            editScreen.style.display = "none";
-        }
-    });
 
 
-    let tableTochnage_id = 0;
     function changeTable(node) {
-        
-        editScreen.style.display = 'block'
-        tableTochnage_id = node.value;
-        const table = document.getElementById(node.value)
-        table.classList.add('V-bgc-table-busy')
-        console.log(tableTochnage_id);
-        console.log(node.value);
-    }
-    function reqChangingTable(node) {
-        
-        fetch("/tables/change-table?id=" + tableTochnage_id + "&toid=" + node.value, {
-            method: 'POST'
-        }).then(async (res) => {
-            const data = await res.text();
-            //do noting with res
-            location.href = "/tables";
-        }).catch(e => {
-            console.log("change went wrong " + e);
-        })
-    }
 
-    function doNthing() { };
-
-    function clearTable(node){
-        console.log(node.value);
-        fetch("/tables/clear-table?id="+node.value,{
-            method:'POST'
-        }).then(async(res)=>{
-            const data=await res.text();
-            //do nothing...
-            location.href="/tables";
-        }).catch(e=>{
-            console.log("clearing table went wrong..."+e);
-        })
     }
 
 </script>
