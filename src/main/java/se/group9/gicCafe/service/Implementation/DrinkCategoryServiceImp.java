@@ -23,6 +23,18 @@ public class DrinkCategoryServiceImp implements DrinkCategoryService{
     }
 
     @Override
+    public DrinkCategory getDrinkCategoryByID(int id) {
+        return drinkCategoryRepo.findById(id).get();
+    }
+
+    @Override
+    public DrinkCategory savAndFlushDrinkCategory(DrinkCategory drinkCategory) {
+        return drinkCategoryRepo.saveAndFlush(drinkCategory);
+    }
+
+    
+
+
     public DrinkCategory saveDrinkCategory(DrinkCategory drinkCategory) {
         return drinkCategoryRepo.save(drinkCategory);
     }

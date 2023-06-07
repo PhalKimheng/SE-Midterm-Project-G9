@@ -21,7 +21,14 @@ public class FoodCategoryServiceImp implements FoodCategoryService{
     @Override
     public List<FoodCategory> getAllFoodCategories() {
         return foodCategoryRepo.findAll();
+     }
+
+    @Override
+    public FoodCategory getFoodCategoryByID(int id) {
+        return foodCategoryRepo.getReferenceById(id);
     }
+
+
 
     @Override
     public FoodCategory saveFoodCategory(FoodCategory foodCategory) {

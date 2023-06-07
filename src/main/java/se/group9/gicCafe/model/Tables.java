@@ -6,8 +6,6 @@ import java.util.List;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -16,7 +14,7 @@ import jakarta.persistence.Table;
 @Table(name = "tables")
 public class Tables {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "status")
@@ -46,6 +44,15 @@ public class Tables {
     }
 
     public void setOrder(List<Order> order) {
+        this.order = order;
+    }
+
+    public Tables() {
+    }
+
+    public Tables(int id, String status, List<Order> order) {
+        this.id = id;
+        this.status = status;
         this.order = order;
     }
 

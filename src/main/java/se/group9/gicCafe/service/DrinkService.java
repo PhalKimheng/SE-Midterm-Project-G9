@@ -14,4 +14,9 @@ public interface DrinkService {
     Drink updateDrink(Drink Drink);
 	
 	void deleteDrinkById(int id);
+    
+// ------
+    Drink saveAndFlushDrink(Drink Drink);
+
+    double getDrinkPriceBySize(Drink drink, String size);
 }

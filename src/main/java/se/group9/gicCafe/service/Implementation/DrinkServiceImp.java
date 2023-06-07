@@ -29,16 +29,33 @@ public class DrinkServiceImp implements DrinkService{
 
     @Override
     public Drink getDrinkById(int id) {
-		return drinkRepo.findById(id).get();
+        return drinkRepo.findById(id).get();
     }
 
     @Override
-	public Drink updateDrink(Drink Drink) {
-		return drinkRepo.save(Drink);
-	}
+    public Drink updateDrink(Drink Drink) {
+        return drinkRepo.save(Drink);
+    }
 
-	@Override
-	public void deleteDrinkById(int id) {
-		drinkRepo.deleteById(id);	
-	}
+    @Override
+    public void deleteDrinkById(int id) {
+        drinkRepo.deleteById(id);
+    }
+
+    // ----------------------------
+    @Override
+    public Drink saveAndFlushDrink(Drink drink) {
+        return drinkRepo.saveAndFlush(drink);
+    }
+
+    @Override
+    public double getDrinkPriceBySize(Drink drink, String size) {
+        if (size.equals("G"))
+            return drink.getSize_G();
+            
+        if (size.equals("L"))
+            return drink.getSize_L();
+
+        return drink.getSize_R();
+    }
 }

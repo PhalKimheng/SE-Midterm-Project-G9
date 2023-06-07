@@ -133,5 +133,24 @@ public class Order {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Order(int id, Date order_date, String zone, double total, double cash_received, double changed,
+            String status, User user, Tables tables, List<OrderDetail> orderDetail) {
+        this.id = id;
+        this.order_date = order_date;
+        this.zone = zone;
+        this.total = total;
+        this.cash_received = cash_received;
+        this.changed = changed;
+        this.status = status;
+        this.user = user;
+        this.tables = tables;
+        this.orderDetail = orderDetail;
+    }
+
+    public Order() {
     }  
+    
+    
 }

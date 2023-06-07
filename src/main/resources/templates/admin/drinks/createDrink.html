@@ -179,7 +179,7 @@
     .form-right>:first-child {
         height: 85%;
         width: 100%;
-        border: 1px solid grey;
+        /* border: 1px solid grey; */
     }
 
     .wrapperImg {
@@ -195,6 +195,7 @@
         align-items: center;
         max-width: 100%;
         max-height: 17.9rem;
+        
     }
 
     /* CSS */
@@ -278,18 +279,24 @@
 
                         <div class="input-box">
                             <label>Category</label>
-                            <input th:field="*{drinkCategory.id}" type="number" required name="dcid" placeholder="Enter a number"
-                                style="margin-left: auto;">
+                            <!-- <input th:field="*{drinkCategory.id}" type="number" required name="dcid" placeholder="Enter a number"
+                                style="margin-left: auto;"> -->
+                                <select th:field="*{drinkCategory.id}" type="number" required name="dcid" >
+                                    <div th:each="category : ${drinkCategories}">
+                                        <option th:value="${category.id}" th:text="${category.name}"></option>
+                                    </div>
+                                    
+                                </select>
                             <!-- HTML !-->
                             <!-- <a th:href="@{/admin/drinkCategory/new}"><button class="button-31" id="new-btn" role="button">New</button></a> -->
 
                         </div>
-                        <div style="display: inline-block;">
+                        <!-- <div style="display: inline-block;">
                             <div th:each="drinkCategory: ${drinkCategories}" style="font-size: 14px; display: inline-block; margin-bottom: 15px;">
                                 <div th:text="${drinkCategory.id} + ' ' + ${drinkCategory.name}"
                                     style="margin-right: 10px;"></div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="input-box" style="height: 3rem;">
                             <label>Price</label>

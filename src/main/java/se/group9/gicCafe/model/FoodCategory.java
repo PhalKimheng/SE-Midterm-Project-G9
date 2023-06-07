@@ -59,4 +59,15 @@ public class FoodCategory {
     public void setCode(String code) {
         this.code = code;
     }
+
+    public FoodCategory(int id, String name, String code, List<Food> food) {
+        this.id = id;
+        this.name = name;
+        this.code = code;
+        this.food = food;
+    }
+
+    public FoodCategory() {
+    }
+    
 }

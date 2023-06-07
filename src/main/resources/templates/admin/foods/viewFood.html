@@ -40,8 +40,8 @@
             background-color: rgb(200, 200, 200);
         }
 
-        #vc-cashier-btn, 
-        #vc-drink-btn, 
+        #vc-cashier-btn,
+        #vc-drink-btn,
         #vc-food-btn {
             border-top-left-radius: 5px;
             border-top-right-radius: 5px;
@@ -49,16 +49,16 @@
             border-bottom: none;
             padding: 3px 0;
             background-color: rgb(200, 200, 200);
-        } 
+        }
 
         #vc-food-btn {
             background-color: white;
         }
 
-        #vc-cashier, 
+        #vc-cashier,
         #vc-drink,
         #vc-food {
-            width: 98%; 
+            width: 98%;
             margin: auto;
             margin-top: 20px;
             border-collapse: collapse;
@@ -174,7 +174,8 @@
 
         #delete-permission {
             border: 1px solid black;
-            box-shadow: 12px 12px 2px 1px rgba(0, 0, 0, .2);;
+            box-shadow: 12px 12px 2px 1px rgba(0, 0, 0, .2);
+            ;
             display: none;
             position: absolute;
             left: 50%;
@@ -289,7 +290,7 @@
         tbody:hover tr:hover td {
             color: #444;
             text-shadow: 0 1px 0 #fff;
-        } 
+        }
 
         h1 {
             text-align: center;
@@ -298,6 +299,13 @@
 </head>
 
 <body style="border: 1px solid black;">
+    <form action="#" th:action="@{/logout}" method="post">
+        <button
+            style="color: white; position: absolute;right: .5rem;padding: .1rem .7rem .1rem .7rem; background-color: grey; border: 2px solid black; border-radius: 4px;">
+            Logout
+        </button>
+    </form>
+
     <div id="vc-container">
         <div id="vc-activity-management">
             <a th:href="@{/admin/cashiers/new}"><button class="vc-activity-btn">New Cashier</button></a>
@@ -337,18 +345,21 @@
                                 <th>Price ($)</th>
                                 <th>Action</th>
                             </tr>
-        
+
                         </thead>
                         <tbody>
-                            <tr th:each = "food: ${foods}" id="food-row">
-                                <td th:text = "${food.id}"></td>
-                                <td th:text = "${food.code}"></td>
-                                <td th:text = "${food.name}"></td>
-                                <td th:text = "${food.price}"></td>
+                            <tr th:each="food: ${foods}" id="food-row">
+                                <td th:text="${food.id}"></td>
+                                <td th:text="${food.code}"></td>
+                                <td th:text="${food.name}"></td>
+                                <td th:text="${food.price}"></td>
                                 <td>
-                                    <a th:href = "@{/admin/foods/detail/{id}(id = ${food.id})}"><i class="fa-sharp fa-solid fa-circle-chevron-down"></i></a>
-                                    <a th:href = "@{/admin/foods/edit/{id}(id = ${food.id})}"><i class="fa-sharp fa-solid fa-pencil"></i></a>
-                                    <a th:href = "@{/admin/foods/{id}(id = ${food.id})}"><i class="fa-solid fa-trash-can"></i></a>
+                                    <a th:href="@{/admin/foods/detail/{id}(id = ${food.id})}"><i
+                                            class="fa-sharp fa-solid fa-circle-chevron-down"></i></a>
+                                    <a th:href="@{/admin/foods/edit/{id}(id = ${food.id})}"><i
+                                            class="fa-sharp fa-solid fa-pencil"></i></a>
+                                    <a th:href="@{/admin/foods/{id}(id = ${food.id})}"><i
+                                            class="fa-solid fa-trash-can"></i></a>
                                     <!-- <i id="delete-btn" class="fa-solid fa-trash-can"></i>
                                     <div id="delete-permission">
                                         <div class="delete-permission-text">Are you sure to delete this food!!</div>
@@ -365,10 +376,10 @@
             <div id="vc-right">
 
             </div>
-                
+
         </div>
     </div>
-    
+
 </body>
 
 </html>

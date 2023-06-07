@@ -184,6 +184,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        overflow: hidden;
     }
 
     .form-right img {
@@ -272,12 +273,23 @@
                             <input type="text" name="name" th:field="*{name}" required placeholder="Enter food name">
                         </div>
 
+
                         <div class="input-box">
+                            <label>Category</label>
+                            <select th:field="*{foodCategory.id}" type="number" required name="dcid">
+                                <div th:each="foodCategory: ${foodCategories}">
+                                    <option th:value="${foodCategory.id}" th:text="${foodCategory.name}"></option>
+                                </div>
+
+                            </select>
+
+                        </div>
+                        <!-- HTML !-->
+                        <!-- <a th:href="@{/admin/foodCategory/new}"><button class="button-31" role="button">New</button></a> -->
+                        <!-- <div class="input-box">
                             <label>Category</label>
                             <input th:field="*{foodCategory.id}" type="number" name="fcid" required placeholder="Enter a number"
                                 style="margin-left: auto;">
-                            <!-- HTML !-->
-                            <!-- <a th:href="@{/admin/foodCategory/new}"><button class="button-31" role="button">New</button></a> -->
 
                         </div>
                         <div style="display: inline-block;">
@@ -286,7 +298,7 @@
                                     style="margin-right: 10px;">
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="input-box" style="height: 3rem;">
                             <label>Price</label>
@@ -302,7 +314,7 @@
                     <div class="form-right">
                         <div>
                             <div class="wrapperImg">
-                                <img id="preview" src="" alt="" th:src="*{'data:image/jpeg;base64,'+{image}}">
+                                <img id="preview" src="" alt="" th:src="@{'data:image/jpeg;base64,'+*{image}}">
                             </div>
                         </div>
                         <div>

@@ -140,4 +140,25 @@ public class User {
     public void setImage(String image) {
         this.image = image;
     }
+
+    public User(int id, String firstname, String lastname, String gender, Date date_of_birth, String username,
+            String password, LocalDateTime last_login, String role, String image, List<Order> order) {
+        this.id = id;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.gender = gender;
+        this.date_of_birth = date_of_birth;
+        this.username = username;
+        this.password = password;
+        this.last_login = last_login;
+        this.role = role;
+        this.image = image;
+        this.order = order;
+    }
+
+    public User() {
+    }
+    
+
+    
 } 

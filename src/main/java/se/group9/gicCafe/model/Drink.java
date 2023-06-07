@@ -128,4 +128,23 @@ public class Drink {
     public void setImage(String image) {
         this.image = image;
     }
+
+    public Drink() {
+    }
+
+    public Drink(int id, String name, String note, String code, double size_R, double size_L, double size_G,
+            String image, DrinkCategory drinkCategory, List<OrderDetail> orderDetail) {
+        this.id = id;
+        this.name = name;
+        this.note = note;
+        this.code = code;
+        this.size_R = size_R;
+        this.size_L = size_L;
+        this.size_G = size_G;
+        this.image = image;
+        this.drinkCategory = drinkCategory;
+        this.orderDetail = orderDetail;
+    }
+    
+    
 }

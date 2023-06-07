@@ -47,6 +47,7 @@ public class DrinkController {
         model.addAttribute("drinkCategories", drinkCategoryService.getAllDrinkCategories());
         return "admin/drinks/drinkDetail";
     }
+    
 
     @GetMapping("/drinks/new")
     public String createDrinkForm(Model model) {
