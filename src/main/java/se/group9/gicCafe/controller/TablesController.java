@@ -32,7 +32,7 @@ public class TablesController {
 	public String saveTables(@RequestParam("number") int tables_number) {
         
         tablesService.deleteAllTables();
-        for(int i=1; i<tables_number; i++) {
+        for(int i=1; i<=tables_number; i++) {
             Tables tables = new Tables(i, CONSTANT.Table_Status_Free, null);
             tablesService.saveTables(tables);
         }

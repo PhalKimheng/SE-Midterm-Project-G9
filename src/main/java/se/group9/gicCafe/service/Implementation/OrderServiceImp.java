@@ -1,5 +1,6 @@
 package se.group9.gicCafe.service.Implementation;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -42,7 +43,9 @@ public class OrderServiceImp implements OrderService {
         for(OrderDetail orderD : orderDetails){
             sum+=orderD.getSubtotal();
         }
-        return sum;
+        DecimalFormat decimalFormat = new DecimalFormat("#.##");
+
+        return Double.parseDouble(decimalFormat.format(sum));
     }
 
     @Override

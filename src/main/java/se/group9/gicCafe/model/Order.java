@@ -29,9 +29,6 @@ public class Order {
     @Column(name = "order_date")
     private Date order_date;
 
-    @Column(name = "zone")
-    private String zone;
-
     @Column(name = "total")
     private double total;
 

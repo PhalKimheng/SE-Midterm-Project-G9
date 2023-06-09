@@ -19,8 +19,8 @@
     }
 
     ::-webkit-scrollbar {
-        width: 1.2vh;
-        height: 1.2vh;
+        width: .42rem;
+        height: .42rem;
     }
 
     ::-webkit-scrollbar-track {
@@ -385,22 +385,10 @@
 
     }
 
-    /* .M-orderInfo input {
-padding: .2rem 2px;
-width: 3rem;
-border: 2px solid transparent;
-border-radius: 4px;
-}
-
-.M-orderInfo input:hover {
-border-color: blue;
-} */
 
     .M-orderInfo>*>:nth-child(2) {
         width: 11%;
-        padding-left: .5rem;
-        /* font-weight: 600; */
-        /* background-color: blue; */
+        padding-left: 1rem;
     }
 
     .M-orderInfo>*>:nth-child(3) {
@@ -440,6 +428,19 @@ border-color: blue;
         align-items: center;
         /* background-color: red; */
 
+    }
+
+    .edit-quantity-food-drink {
+        font-size: 1rem;
+        width: 3.2rem;
+        padding: .2rem .4rem .2rem 0;
+        padding-left: .4rem !important;
+        border-radius: 4px;
+        border: 1px solid transparent;
+    }
+
+    .M-orderInfo>*:hover .edit-quantity-food-drink {
+        border-color: hsl(240, 100%, 55%);
     }
 
 
@@ -613,6 +614,154 @@ border-color: blue;
         background-color: rgb(0, 0, 0);
         color: rgb(255, 255, 255);
     }
+
+    /* add order -screen */
+    /* add order -screen */
+    /* add order -screen */
+    /* add order -screen */
+    /* add order -screen */
+    /* add order -screen */
+    .add-drink-order {
+        position: absolute;
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 15;
+
+        display: none;
+    }
+
+    #drink-edit-screen {
+        position: absolute;
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 15;
+
+        display: none;
+    }
+
+    .add-drink-order * {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        box-sizing: border-box;
+    }
+
+
+    .add-drink-order input[type="checkbox"] {
+        width: 25px;
+        height: 25px;
+        margin: 5px;
+    }
+
+    .add-drink-order label {
+        font-size: 20px;
+        margin: 5px;
+    }
+
+    .add-drink-order .checkbox,
+    .add-drink-order .cream {
+        width: 50%;
+        margin-left: 20px;
+        display: flex;
+        font-size: 22px;
+        align-items: center;
+        justify-content: start;
+    }
+
+    .add-drink-order #open-modal,
+    .add-drink-order #modal-overlay button {
+        padding: 10px;
+        font-size: 1.1em;
+        background: #32bacf;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+    }
+
+    .add-drink-order #modal-overlay button:hover {
+        background: rgba(0, 0, 0, 0.7);
+    }
+
+    .add-drink-order #modal-overlay {
+        width: 100%;
+        height: 100vh;
+        position: absolute;
+        /* background: rgba(0, 0, 0, 0.7); */
+        /* display: none; */
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .add-drink-order #modal-overlay #modal {
+        max-width: 500px;
+        width: 100%;
+        background: #9DB2BF;
+        height: 400px;
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        border-radius: 10px;
+        row-gap: 10px;
+    }
+
+    .add-drink-order #modal-overlay #modal .modal-header {
+        width: 100%;
+        height: 25%;
+        font-size: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        justify-content: start;
+        row-gap: 15px;
+    }
+
+    .add-drink-order #modal-overlay #modal .modal-content {
+        width: 100%;
+        height: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        justify-content: start;
+        row-gap: 15px;
+    }
+
+    .add-drink-order #modal-overlay #modal .modal-footer {
+        width: 100%;
+        height: 25%;
+        display: flex;
+        align-items: center;
+        justify-content: end;
+        column-gap: 5px;
+    }
+
+    .add-drink-order .box {
+        width: 50%;
+        margin-left: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: start;
+    }
+
+    .add-drink-order .box #sugar-select {
+        /* background-color: #27374D; */
+        /* color: white; */
+        padding: 10px;
+        margin-left: 10px;
+        width: 100px;
+        border: none;
+        border-radius: 3px;
+        font-size: 16px;
+        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+        /* -webkit-appearance: button; */
+        /* appearance: button; */
+        outline: none;
+    }
 </style>
 
 <body>
@@ -688,35 +837,39 @@ border-color: blue;
             </div>
         </section>
 
+        <!------ order information------->
         <section class="M-sec-right">
             <Strong>Order Information</Strong>
-            <!------ order information------->
             <div style="width: 100%; height: 100%;" id="orderInfomation">
                 <div th:replace="~{fragments/OrderDetail :: orderDetail_of_table}"></div>
             </div>
         </section>
 
+        <!-- edit order -->
+        <div id="drink-add-edit-screen" class="add-drink-order"></div>
+
+        <!-- checkout -->
         <div style="position: absolute; top: .7rem; right: 1rem;">
             <button id="checkout"
-                style=" color: #ffffff; background-color: black; border: 2px solid black;border-radius: 4px; padding: .1rem .7rem .1rem .7rem;">
+                style=" color: #ffffff; background-color: black; border: 2px solid black;border-radius: 4px; padding: .2rem .7rem .2rem .7rem;">
 
                 <Strong>checkout</Strong>
             </button>
         </div>
 
         <div id="checkout-screen">
-            <form action="#" th:action="@{'/tables/table'+${tid}+'/checkout-order?id='+${order_id}}" method="post">
+            <form action="#" th:action="@{'/tables/table'+${tid}+'/checkout-order'}" method="post">
                 <div class="c12">
                     <span>Cash receive</span>
                     <span>Total cost</span>
                     <span>Change</span>
                 </div>
-                <div class="c12" style="column-gap: 9.5rem;">
-                    <span>
+                <div class="c12" style="column-gap: 7rem !important;">
+                    <span style="width: 4rem;margin-left: 2rem;">
                         <input id="cash_receive" name="cash_receive" type="number" min="0" step="0.1" value="0" style="padding-left: .5rem; width: 5rem; border: 2px solid orange; ;
                         font-size: inherit; font-weight: inherit;"></span>
-                    <span id="total_">11.1</span>
-                    <span id="change_">0</span>
+                    <span id="total_" style="width: 5rem; margin-left: 4rem;">11.1</span>
+                    <span id="change_" style="width: 5rem;">0</span>
 
                 </div>
                 <div class="submit-checkout">
@@ -726,6 +879,7 @@ border-color: blue;
             </form>
         </div>
 
+        <!-- back to table selection -->
         <div style="position: absolute; right: 1rem; bottom: 1rem;">
             <a href="/tables" style="text-decoration: none;color: #ffffff; 
                         background-color: black; border: 2px solid black;border-radius: 4px; 
@@ -786,7 +940,7 @@ border-color: blue;
                 // console.log(data);
                 drinks_ofCTG.innerHTML = data;
             }).catch((err) => {
-                console.log("oops!!!! someting went wrong!!!!!" + err);
+                console.log("fetchFoods_DrinkByCategory!!!!!" + err);
             })
 
         } else {
@@ -814,19 +968,52 @@ border-color: blue;
             const data = await res.text();
             // console.log(data);
             orderInfo.innerHTML = data;
-
+        }).catch(e => {
+            console.log('delete order went wrong+' + e);
         })
     }
 
-    // edit drink order
-    function editOrder(node) {
-        location.href = thisPageURL + "/edit-drink?id=" + node.value
+    //edit quantity
+    function editQuantity(node) {
+        // console.log(node.dataset.drinkfood_id);
+        fetch(thisPageURL + '/edit-quantity?id=' + node.dataset.drinkfood_id + '&quantity=' + node.value, {
+            method: 'POST'
+        }).then(async res => {
+            const data = await res.text();
+            orderInfo.innerHTML = data
+            // console.log(data);
+
+        }).catch(e => {
+            console.log('edit quantity went wrong' + e);
+        })
     }
 
+
     //order wether food or drink...drink to new page and food same old page, pop one up (only 1 at a time...no quantity..)
+    // -Checkbox with single choice
+    function limitCheckboxSelection(checkbox) {
+        var checkboxes = document.getElementsByName(checkbox.name);
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i] !== checkbox) {
+                checkboxes[i].checked = false;
+            }
+        }
+    }
+    //- choose to order, can be drink or food as they will be sent to same api /add-{type}?id=
+    const addOrderScreen = document.getElementById('add-drink-screen');
+    // will store id of seleted drink
+    let drinfoodToAdd_id = -1;
     function chooseOrder(node) {
         if (previosSelectedCategory.value == "drink") {
-            location.href = thisPageURL + "/add-drink?id=" + node.dataset.drinkfoodid
+            drinkAddEdit_screen.style.display = 'block'
+            drinfoodToAdd_id = node.dataset.drinkfoodid,
+                fetch(thisPageURL + '/add-drink').then(async res => {
+                    const data = await res.text();
+                    drinkAddEdit_screen.innerHTML = data
+                }).catch(e => {
+                    console.log('fetch add drink view went wrong' + e);
+                })
+
         } else {
             fetch(thisPageURL + "/add-food?id=" + node.dataset.drinkfoodid, {
                 method: 'POST'
@@ -834,9 +1021,70 @@ border-color: blue;
                 const data = await res.text();
                 orderInfo.innerHTML = data;
             }).catch(err => {
-                //do nothing
+                console.log("adding food went wrong :" + err);
             })
         }
+    }
+
+    function addDrink() {
+        const size = document.querySelector('input[name="size"]:checked').value
+        const cream = document.querySelector('#cream').checked
+        const sugar = document.querySelector('#sugar-select').value
+        const quantity = document.querySelector('#quantity').value
+        fetch(thisPageURL + "/add-drink?id=" + drinfoodToAdd_id + `&size=${size}&cream=${cream}&sugar=${sugar}&quantity=${quantity}`, {
+            method: 'POST',
+        }).then(async res => {
+            const result = await res.text();
+            // console.log(result);
+            orderInfo.innerHTML = result;
+            backToOrderSelectionScreen();
+        }).catch(e => {
+            console.log('add drink went wrong: ' + e);
+        })
+    }
+
+    function backToOrderSelectionScreen() {
+        drinkAddEdit_screen.style.display = 'none'
+    }
+
+    //hide add/edit drink screen
+    const drinkAddEdit_screen = document.getElementById('drink-add-edit-screen')
+    drinkAddEdit_screen.addEventListener('click', (event) => {
+        const modalOverLay=document.getElementById('modal-overlay')
+        if (event.target === modalOverLay) {
+            drinkAddEdit_screen.style.display = "none";
+        }
+    })
+    
+    // edit drink order
+    let orderToEdit_id = 0;
+    function editOrder(node) {
+        drinkAddEdit_screen.style.display = 'block'
+        orderToEdit_id = node.value;
+
+        fetch(thisPageURL + '/edit-drink?id=' + orderToEdit_id).then(async res => {
+            const data = await res.text();
+            drinkAddEdit_screen.innerHTML = data
+        }).catch(e => {
+            console.log('get edit drink screen went wrong+' + e);
+        })
+    }
+
+    function editDrink() {
+        const size = document.querySelector('input[name="size"]:checked').value
+        const cream = document.querySelector('#cream').checked
+        const sugar = document.querySelector('#sugar-select').value
+        const quantity = document.querySelector('#quantity').value
+        fetch(thisPageURL + "/edit-drink?id=" + orderToEdit_id + `&size=${size}&cream=${cream}&sugar=${sugar}&quantity=${quantity}`, {
+            method: 'POST',
+        }).then(async res => {
+            const result = await res.text();
+            // console.log(result);
+            orderInfo.innerHTML = result;
+            backToOrderSelectionScreen();
+        }).catch(e => {
+            console.log('edit drink went wrong+' + e);
+        })
     }
 
 
@@ -854,7 +1102,11 @@ border-color: blue;
             if (parseFloat(data) < 0) {
                 alert("No order to checkout!!!")
             } else {
-                totalCost.innerText = data;
+                totalCost.innerText = (data - 0).toFixed(2);
+                const reoundUp = Math.ceil(data);
+                cashReceiveInput.value = reoundUp;
+
+                change.innerText = (reoundUp - data).toFixed(2);
                 checkout_screen.style.display = 'block';
             }
         })
@@ -869,14 +1121,14 @@ border-color: blue;
     function updateChange() {
         const cashReceived = parseFloat(cashReceiveInput.value);
         const total = parseFloat(totalCost.textContent);
-        const changeAmount = cashReceived - total;
+        const changeAmount = (cashReceived - total).toFixed(2);
         if (changeAmount < 0) {
             change.style.color = 'red';
         }
         else {
             change.style.color = 'inherit';
         }
-        change.textContent = changeAmount.toFixed(2);
+        change.textContent = changeAmount;
     }
 
 </script>
