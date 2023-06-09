@@ -227,7 +227,7 @@ public class CashiersController {
             String username = authentication.getName();
             User user = userService.getUserByUsername(username);
             model.addAttribute("NoData", true);
-            order = new Order(0, new java.util.Date(), null, 0, 0, 0, CONSTANT.Order_Status_Pending,
+            order = new Order(0, new java.util.Date(), 0, 0, 0, CONSTANT.Order_Status_Pending,
                     user, tableService.getTableByID(tid), new ArrayList<OrderDetail>());
             orderService.saveAndFlushOrder(order);
 
@@ -265,7 +265,6 @@ public class CashiersController {
             order.getOrderDetail().add(orderDetail);
 
         model.addAttribute("orderDetails", order.getOrderDetail());
-        System.out.println(order.getOrderDetail());
 
         return "fragments/OrderDetail :: orderDetail_of_table";
     }
