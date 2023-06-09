@@ -29,9 +29,6 @@ public class Order {
     @Column(name = "order_date")
     private Date order_date;
 
-    @Column(name = "zone")
-    private String zone;
-
     @Column(name = "total")
     private double total;
 
@@ -63,13 +60,6 @@ public class Order {
         this.id = id;
     }
 
-    public String getZone() {
-        return zone;
-    }
-
-    public void setZone(String zone) {
-        this.zone = zone;
-    }
 
     public double getTotal() {
         return total;
@@ -135,11 +125,10 @@ public class Order {
         this.status = status;
     }
 
-    public Order(int id, Date order_date, String zone, double total, double cash_received, double changed,
+    public Order(int id, Date order_date, double total, double cash_received, double changed,
             String status, User user, Tables tables, List<OrderDetail> orderDetail) {
         this.id = id;
         this.order_date = order_date;
-        this.zone = zone;
         this.total = total;
         this.cash_received = cash_received;
         this.changed = changed;

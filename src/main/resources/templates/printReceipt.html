@@ -187,9 +187,7 @@
                 </div>
                 <div id="detail-out">
                     <!-- just cut the decimal part ex: 4000.0 -> 4000 -->
-                    <p th:text="${': '+(order.getTotal()*4100).toString()
-                        .substring(0,
-                                  (order.getTotal()*4100).toString().length-2 )}">16000</p>                    
+                    <p th:text="${': '+toReils}">16000</p>                    
                 </div>
             </div>
         </div>
